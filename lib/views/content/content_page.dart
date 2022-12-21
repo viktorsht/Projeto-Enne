@@ -1,4 +1,6 @@
+import 'package:enne_barbearia/app.dart';
 import 'package:enne_barbearia/core/theme/app_colors.dart';
+import 'package:enne_barbearia/views/content/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -33,36 +35,14 @@ class _ContentPageState extends State<ContentPage>
     return Scaffold(
       //bakccolor: AppColors.primaryColor,
       backgroundColor: AppColors.primaryColor,
+      drawer: const NavBar(),
       appBar: AppBar(
+        title: Text('Enne'),
+        centerTitle: true,
+        backgroundColor: AppColors.red,
         actions: [
-          TextButton(
-            onPressed: (){}, 
-            child: Text(
-              'ENNE',
-              style: TextStyle(fontSize: 30, color: AppColors.black54),
-            )
-          )
+          IconButton(onPressed: (){}, icon: Icon(Icons.person))
         ],
-        backgroundColor: AppColors.red,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.red,
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label:'Inicio'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Agendamento Online'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Sobre a barbearia'
-          ),
-        ],
-      selectedItemColor: Colors.red[800],
       ),
     );
   }

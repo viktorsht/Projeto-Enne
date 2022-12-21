@@ -1,4 +1,5 @@
 /*Importações do flutter*/
+import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:flutter/material.dart';
 
 /*Importações do app*/
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
       //title: 'Enne',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: ContentPage(),
+      home: const LoginApp(),
     );
   }
 }
