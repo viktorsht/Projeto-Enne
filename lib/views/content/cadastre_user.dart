@@ -1,19 +1,19 @@
 import 'package:enne_barbearia/core/theme/app_button.dart';
 import 'package:enne_barbearia/core/theme/app_colors.dart';
 import 'package:enne_barbearia/core/theme/app_theme.dart';
-import 'package:enne_barbearia/views/content/cadastre_user.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/registration_user_completed.dart';
 import 'package:flutter/material.dart';
 //import 'content/app_button.dart';
 
-class LoginApp extends StatefulWidget {
-  const LoginApp({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<LoginApp> createState() => _LoginAppState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginAppState extends State<LoginApp> {
+class _RegisterState extends State<Register> {
 
   final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
@@ -33,8 +33,8 @@ class _LoginAppState extends State<LoginApp> {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              width: 300,
-              height: 300,
+              width: 150,
+              height: 150,
               child: Image.asset('assets/logo.png'),
             ),
             // ignore: prefer_const_constructors
@@ -42,11 +42,11 @@ class _LoginAppState extends State<LoginApp> {
               height: 35,
             ),
               TextFormField(
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.name,
                 // ignore: prefer_const_constructors
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: "email/telefone",
+                  labelText: "Nome",
                   // ignore: prefer_const_constructors
                   labelStyle: TextStyle(
                     color: AppColors.backColor,
@@ -56,15 +56,44 @@ class _LoginAppState extends State<LoginApp> {
                 ),
                 style: TextStyle(fontSize: 20, color: AppColors.backColor),
               ),
-              SizedBox(
-                height: 35,
+              TextFormField(
+                keyboardType: TextInputType.number,
+                obscureText: true,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  labelText: "Telefone",
+                  border: const OutlineInputBorder(),
+                  // ignore: prefer_const_constructors
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    ),
+                ),
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                obscureText: true,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  border: const OutlineInputBorder(),
+                  // ignore: prefer_const_constructors
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    ),
+                ),
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
                 obscureText: true,
                 // ignore: prefer_const_constructors
                 decoration: InputDecoration(
-                  labelText: "senha",
+                  labelText: "Senha",
                   border: const OutlineInputBorder(),
                   // ignore: prefer_const_constructors
                   labelStyle: TextStyle(
@@ -82,30 +111,20 @@ class _LoginAppState extends State<LoginApp> {
                 child: ElevatedButton(
                   style: theme_button_general,
                   onPressed: () {
+                    /*Cadastro concluído com sucesso*/
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const ContentPage()),
+                      MaterialPageRoute(builder: (context) => const RegUserCompleted()),
                     );
                   },
-                  child: Text('Entrar',style: TextStyle(fontSize: 20,color: AppColors.textColor)),
+                  child: Text(
+                    'Cadastrar',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: AppColors.textColor
+                      )
+                    ),
                   ),
               ),
-              SizedBox(
-                height: 35,
-              ),
-              Container(
-              child:
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(AppColors.backColor),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Register()),
-                    );
-                },
-                child: Text('Não tenho conta',),
-              )
-            ),
           ],
         ),
       ),

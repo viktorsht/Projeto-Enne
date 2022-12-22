@@ -39,7 +39,7 @@ class _ContentPageState extends State<ContentPage>
       appBar: AppBar(
         title: Text('Enne'),
         centerTitle: true,
-        backgroundColor: AppColors.red,
+        backgroundColor: AppColors.secundaryColor,
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.person))
         ],
