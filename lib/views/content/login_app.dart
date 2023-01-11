@@ -1,6 +1,6 @@
-import 'package:enne_barbearia/core/theme/app_button.dart';
-import 'package:enne_barbearia/core/theme/app_colors.dart';
-import 'package:enne_barbearia/core/theme/app_theme.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
+import 'package:enne_barbearia/views/theme/app_colors.dart';
+import 'package:enne_barbearia/views/theme/app_theme.dart';
 import 'package:enne_barbearia/views/content/cadastre_user.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/material.dart';

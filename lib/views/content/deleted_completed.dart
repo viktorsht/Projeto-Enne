@@ -1,4 +1,4 @@
-import 'package:enne_barbearia/core/theme/app_colors.dart';
+import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _DeletedCompletedState extends State<DeletedCompleted> {
             ),
             child: const Text(
               'Tela inicial',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20, 
                 color: AppColors.primaryColor)
             ),

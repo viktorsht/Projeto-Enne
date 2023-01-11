@@ -1,8 +1,5 @@
-import 'package:enne_barbearia/core/theme/app_button.dart';
-import 'package:enne_barbearia/core/theme/app_colors.dart';
-import 'package:enne_barbearia/core/theme/app_theme.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
-import 'package:enne_barbearia/views/content/registration_user_completed.dart';
+import 'package:enne_barbearia/views/theme/app_colors.dart';
+import 'package:enne_barbearia/views/content/register_user_completed.dart';
 import 'package:flutter/material.dart';
 //import 'content/app_button.dart';
 
@@ -54,7 +51,7 @@ class _RegisterState extends State<Register> {
                     fontSize: 20,
                     ),
                 ),
-                style: TextStyle(fontSize: 20, color: AppColors.backColor),
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
@@ -116,7 +113,7 @@ class _RegisterState extends State<Register> {
                       MaterialPageRoute(builder: (context) => const RegUserCompleted()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Cadastrar',
                     style: TextStyle(
                       fontSize: 20,
