@@ -1,3 +1,4 @@
+import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,20 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.menu),
             title: const Text('Menu principal'),
-            onTap: (() => const ContentPage()),
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ContentPage()),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.schedule),
             title: const Text('Agendar'),
-            onTap: (() => null),
+            onTap: (() {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const RegisterService()),
+              );
+            }),
           ),
           ListTile(
             leading: const Icon(Icons.schedule_send),

@@ -1,5 +1,6 @@
 import 'package:enne_barbearia/app.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/register_date.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class _RegisterServiceState extends State<RegisterService> {
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),*/
   );
+  // ignore: prefer_const_constructors
   final style_text = TextStyle(
                   fontSize: 20,
                   color: AppColors.textColor
@@ -32,10 +34,17 @@ class _RegisterServiceState extends State<RegisterService> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("1 - Serviço"), 
+        centerTitle: true,
+        backgroundColor: AppColors.primaryColor,
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: AppColors.primaryColor,
       body: Container(
         child: ListView(
         children: [
+          /*
           Container(
             // ignore: prefer_const_constructors
             child: Padding(
@@ -48,8 +57,8 @@ class _RegisterServiceState extends State<RegisterService> {
                   )
                 ),
               ),
-            ),
-          SizedBox(height: 50,),
+            ),*/
+          SizedBox(height: 100,),
           Center(
             child: ValueListenableBuilder(
               valueListenable: dropValue,
@@ -61,7 +70,7 @@ class _RegisterServiceState extends State<RegisterService> {
                     hint: const Text('Selecione corte',
                       style: TextStyle(
                         fontSize: 15,
-                        color: AppColors.textColor
+                        color: AppColors.primaryColor
                     )
                   ),
                   decoration:InputDecoration(
@@ -122,7 +131,7 @@ class _RegisterServiceState extends State<RegisterService> {
               onPressed: () {
                 // CONTINUAR AGENDAMENTO ...
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ContentPage()),
+                  MaterialPageRoute(builder: (context) => const RegisterDate()),
                 );
               },
               child: const Text(
