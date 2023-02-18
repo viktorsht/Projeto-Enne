@@ -1,5 +1,5 @@
+import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,7 @@ class RegUserCompletedState extends State<RegUserCompleted> {
           TextButton(
             //onPressed: () => Navigator.pop(context, 'OK'),
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const ContentPage()),
+              MaterialPageRoute(builder: (context) => const LoginApp()),
             ),
             child: const Text(
               'Tela inicial',

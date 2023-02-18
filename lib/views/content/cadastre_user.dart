@@ -161,8 +161,8 @@ class _RegisterState extends State<Register> {
                   style: theme_button_general,
                   onPressed: () async{
                     int register = await submitRegisterUserApi(
-                      _nomeController, _sobrenomeController,_emailController,
-                      _cpfController, _senhaController, level, addr, social);
+                      _nomeController.text, _sobrenomeController.text,_emailController.text,
+                      _cpfController.text, _senhaController.text, level, addr, social);
                     /*Cadastro concluído com sucesso*/
                     if(register == 200){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegUserCompleted()));
