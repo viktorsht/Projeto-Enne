@@ -1,14 +1,11 @@
 import 'dart:convert';
 
-import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/theme/app_theme.dart';
 import 'package:enne_barbearia/views/content/cadastre_user.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/loginModel.dart';
 
 //import 'content/app_button.dart';
 
@@ -141,6 +138,7 @@ class _LoginAppState extends State<LoginApp> {
                       print('login = $login');
                       if(login == 200){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                        
                       }
                       else{
                         setState(() {
@@ -166,9 +164,7 @@ class _LoginAppState extends State<LoginApp> {
                   foregroundColor: MaterialStateProperty.all<Color>(AppColors.backColor),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Register()),
-                    );
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()),);
                 },
                 child: const Text('Não tenho conta',),
               )

@@ -23,7 +23,7 @@ class NavBar extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             //backgroundColor: AppColors.primaryColor
-            accountName: const Text('Oi'), 
+            accountName: const Text('Olá'), 
             accountEmail: const Text('accountEmail'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(child: Image.asset('assets/logo.png', fit: BoxFit.cover)),

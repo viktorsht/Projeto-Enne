@@ -2,6 +2,8 @@ import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/register_user_completed.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../models/validaCPF.dart';
 //import 'content/app_button.dart';
 
 class Register extends StatefulWidget {
@@ -45,6 +47,8 @@ class _RegisterState extends State<Register> {
   final addr = 1;
   final social = 1;
 
+  final _formKey = GlobalKey<FormState>();
+
   final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
       minimumSize: Size(130, 50),
@@ -60,127 +64,212 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Container(
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 150,
-              height: 150,
-              child: Image.asset('assets/logo.png'),
-            ),
-            // ignore: prefer_const_constructors
-            SizedBox(
-              height: 35,
-            ),
-              TextFormField(
-                keyboardType: TextInputType.name,
-                controller: _nomeController,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: "Nome",
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+        child:Form(
+          key: _formKey,
+          child: ListView(
+            children: <Widget>[
+              SizedBox(
+                width: 150,
+                height: 150,
+                child: Image.asset('assets/logo.png'),
               ),
-              TextFormField(
-                keyboardType: TextInputType.name,
-                controller: _sobrenomeController,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: "Sobrenome",
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-              ),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                controller: _emailController,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  border: const OutlineInputBorder(),
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _cpfController,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  labelText: "CPF",
-                  border: const OutlineInputBorder(),
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-              ),
-              
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _senhaController,
-                obscureText: true,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  labelText: "Senha",
-                  border: const OutlineInputBorder(),
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-              ),
+              // ignore: prefer_const_constructors
               SizedBox(
                 height: 35,
               ),
-              Container(
-                child: ElevatedButton(
-                  style: theme_button_general,
-                  onPressed: () async{
-                    int register = await submitRegisterUserApi(
-                      _nomeController.text, _sobrenomeController.text,_emailController.text,
-                      _cpfController.text, _senhaController.text, level, addr, social);
-                    /*Cadastro concluído com sucesso*/
-                    if(register == 200){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegUserCompleted()));
-                    }
-                    else{
-                      print('Código de registro = $register');
-                    }
-                  },
-                  child: const Text(
-                    'Cadastrar',
-                    style: TextStyle(
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _nomeController,
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Nome",
+                    // ignore: prefer_const_constructors
+                    labelStyle: TextStyle(
+                      color: AppColors.backColor,
+                      fontWeight: FontWeight.w400,
                       fontSize: 20,
-                      color: AppColors.textColor
-                      )
                     ),
                   ),
-              ),
-          ],
+                  validator: (value) {
+                    if (value == null ||value.isEmpty) {
+                      return 'Por favor, digite o seu nome';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: _sobrenomeController,
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Sobrenome",
+                    // ignore: prefer_const_constructors
+                    labelStyle: TextStyle(
+                      color: AppColors.backColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      ),
+                  ),
+                  validator: (value) {
+                    if (value == null ||value.isEmpty) {
+                      return 'Por favor, digite o seu sobrenome';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _emailController,
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    border: const OutlineInputBorder(),
+                    // ignore: prefer_const_constructors
+                    labelStyle: TextStyle(
+                      color: AppColors.backColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Por favor, digite o seu email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Por favor, digite um email válido';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _cpfController,
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    labelText: "CPF",
+                    border: const OutlineInputBorder(),
+                    // ignore: prefer_const_constructors
+                    labelStyle: TextStyle(
+                      color: AppColors.backColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      ),
+                  ),
+                  validator: (value) {
+                    if (ValidadorCpf.validar(value!) == false){
+                      return 'Por favor, digite um CPF válido';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                ),
+                
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _senhaController,
+                  obscureText: true,
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    labelText: "Senha",
+                    border: const OutlineInputBorder(),
+                    // ignore: prefer_const_constructors
+                    labelStyle: TextStyle(
+                      color: AppColors.backColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Por favor, digite a sua senha';
+                    }
+                    if (value.length < 6) {
+                      return 'A senha deve ter no mínimo 6 caracteres';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                ),
+                const SizedBox(height: 35,),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: theme_button_general,
+                        onPressed: () async{
+                            // Ação que será executada ao pressionar o botão "Cadastro 2"
+                            if(_formKey.currentState!.validate()){
+                            int register = await submitRegisterUserApi(
+                              _nomeController.text, _sobrenomeController.text,_emailController.text,
+                              _cpfController.text, _senhaController.text, level, addr, social);
+                            if(register == 200){
+                            /*Cadastro concluído com sucesso*/
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoCadastro()));
+                            }
+                            else{
+                              print('Código de registro = $register');
+                            }
+                          }
+                        },
+                          child: Text('Cadastrar',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.textColor
+                            )
+                          ),
+                        ),
+                        const SizedBox(width: 40),
+                        ElevatedButton(
+                          style: theme_button_general,
+                          onPressed: () {
+                            // Ação que será executada ao pressionar o botão "Voltar"
+                            Navigator.pop(context);
+                          },
+                          child: Text('Voltar',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.textColor
+                            )
+                          ),
+                        ),
+                      ],
+                  ),
+                
+                /*
+                Container(
+                  child: ElevatedButton(
+                    style: theme_button_general,
+                    onPressed: () async{
+                    if(_formKey.currentState!.validate()){
+                        int register = await submitRegisterUserApi(
+                          _nomeController.text, _sobrenomeController.text,_emailController.text,
+                          _cpfController.text, _senhaController.text, level, addr, social);
+                        if(register == 200){
+                        /*Cadastro concluído com sucesso*/
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoCadastro()));
+                        }
+                        else{
+                          print('Código de registro = $register');
+                        }
+                      
+                      }
+                    },
+                    child: const Text(
+                      'Cadastrar',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: AppColors.textColor
+                        )
+                      ),
+                    ),
+                ),*/
+            ],
+          ),
         ),
       ),
     );
