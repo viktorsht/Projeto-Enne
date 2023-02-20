@@ -3,6 +3,7 @@ import 'package:enne_barbearia/views/content/register_user_completed.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../ip_api.dart';
 import '../../models/validaCPF.dart';
 //import 'content/app_button.dart';
 
@@ -14,7 +15,7 @@ class Register extends StatefulWidget {
 }
 
 Future<int> submitRegisterUserApi(var nome, var snome, var email, var cpf, var password, var level, var addr, var social) async {
-  const myIp = '10.0.0.16';
+  const myIp = IpApi.myIp;
   const String apiUrl = "http://$myIp/phpApi/public_html/api/registerUser/";
   String parametros = 'name=$nome&surname=$snome&email=$email&cpf=$cpf&password=$password&fk_level=$level&fk_address=$addr&fk_social=$social';
   try {

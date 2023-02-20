@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/cadastre_user.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../ip_api.dart';
 
 
 //import 'content/app_button.dart';
@@ -17,18 +20,23 @@ class LoginApp extends StatefulWidget {
 }
 
 Future<int> submitLoginApi(var email, var password) async {
-  const myIp = '10.0.0.16';
+  const myIp = IpApi.myIp;
   const String apiUrl = "http://$myIp/phpApi/public_html/api/login";
   String parametros = 'email=$email&password=$password';
   var result = '';
+  UserActiveApp userActive = UserActiveApp();
   try {
     http.Response response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
       body: parametros,
     );
+    Map<String, dynamic> dados_api = jsonDecode(response.body);
+    //String json = jsonEncode(json_resposta);
+    //Map<String, dynamic> dados = jsonDecode(json_resposta['data']);
     if (response.statusCode == 200) {
       print("Requisição bem sucedida: ${response.body}");
+      userActive.idUserActive(dados_api['data']['id']);
       return response.statusCode;
     } else {
       print("Requisição não sucedida: ${response.statusCode}");

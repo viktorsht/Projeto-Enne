@@ -1,12 +1,9 @@
-import 'package:enne_barbearia/app.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
+import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation_controller.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/ticker_provider.dart';
+
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -47,13 +44,15 @@ class _ContentPageState extends State<ContentPage>
     return Scaffold(
       //bakccolor: AppColors.primaryColor,
       backgroundColor: AppColors.primaryColor,
-      drawer: const NavBar(),
+      drawer: NavBar(),
       appBar: AppBar(
         title: const Text('Enne'),
         centerTitle: true,
         backgroundColor: AppColors.secundaryColor,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.person))
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }, icon: Icon(Icons.person))
         ],
       ),
       body: Container(
