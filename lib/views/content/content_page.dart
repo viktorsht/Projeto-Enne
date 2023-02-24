@@ -1,7 +1,7 @@
+import 'package:enne_barbearia/views/content/navigation.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/content/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 
@@ -34,7 +34,7 @@ class _ContentPageState extends State<ContentPage>
     final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
       minimumSize: Size(100, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
@@ -44,7 +44,7 @@ class _ContentPageState extends State<ContentPage>
     return Scaffold(
       //bakccolor: AppColors.primaryColor,
       backgroundColor: AppColors.primaryColor,
-      drawer: NavBar(),
+      drawer: Navigation(),
       appBar: AppBar(
         title: const Text('Enne'),
         centerTitle: true,
@@ -76,12 +76,13 @@ class _ContentPageState extends State<ContentPage>
               child: const Text(
                 'Agendar agora!',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 25,
                   color: AppColors.textColor
                   )
                 ),
               ),
             ),
+            /*
             SizedBox(height: 15,),
             Container(
             child: ElevatedButton(
@@ -100,8 +101,8 @@ class _ContentPageState extends State<ContentPage>
                   color: AppColors.textColor
                   )
                 ),
-              ),
             ),
+              ),*/
           ]
         )
       ),

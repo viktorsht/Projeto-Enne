@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../ip_api.dart';
+import '../admin/home_page_admin.dart';
 
 
 //import 'content/app_button.dart';
@@ -145,14 +146,23 @@ class _LoginAppState extends State<LoginApp> {
                       int login = await submitLoginApi(_emailController.text,_senhaController.text);
                       print('login = $login');
                       if(login == 200){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                        print(UserActiveApp.idUser);
+                        if(UserActiveApp.idUser == '1'){
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                        }
+                        else{
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                        }
+                        
                         
                       }
                       else{
+                        /*
                         setState(() {
                           _emailController.text = '';
                           _senhaController.text = '';
-                        });
+                        });*/
                       }
                     }
                     else{

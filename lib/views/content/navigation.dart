@@ -1,31 +1,42 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:enne_barbearia/views/content/login_app.dart';
+import 'package:enne_barbearia/views/content/password_change.dart';
+import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
-import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/userActive.dart';
+import '../theme/app_colors.dart';
 
+class Navigation extends StatefulWidget {
+  const Navigation({super.key});
 
-class NavBar extends StatelessWidget {
-  NavBar({super.key});
+  @override
+  State<Navigation> createState() => _NavigationState();
+}
 
+class _NavigationState extends State<Navigation> {
+
+  String id = "";
+  String name = "";
+  String email = "";
 
   void closeAppUsingExit() {
     exit(0);
   }
 
-  String retorno = UserActiveApp.idUser;
-  String name = UserActiveApp.nameUser;
-  String email = UserActiveApp.emailUser;
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa os controladores de texto com dados de exemplo
+    id = UserActiveApp.idUser;
+    name = UserActiveApp.nameUser;
+    email = UserActiveApp.emailUser;
 
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      //https://www.youtube.com/watch?v=SLR8U55FpFQ ASSISTIR PARA APRENDER
       child: ListView(
         padding: EdgeInsets.zero,
           children: [
@@ -38,23 +49,11 @@ class NavBar extends StatelessWidget {
             ),
             decoration: const BoxDecoration(color: AppColors.secundaryColor),
           ),
-          /*
-          ListTile(
-            leading: const Icon(Icons.menu),
-            title: const Text('Menu principal'),
-            onTap: (){
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ContentPage()),
-              );
-            },
-          ),
-          */
           ListTile(
             leading: const Icon(Icons.schedule),
             title: const Text('Agendar'),
             onTap: (() {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const RegisterService()),
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),
               );
             }),
           ),
@@ -66,31 +65,34 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Meu perfil'),
-            onTap: (() => null),
+            onTap: (() {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()),);
+            }),
           ),
           ListTile(
             leading: const Icon(Icons.email),
             title: const Text('Contato'),
-            onTap: (() => null),
+            onTap: (() {
+            }),
           ),
           //const Divider(),
-          /*ListTile(
-            leading: const Icon(Icons.group),
-            title: Text('Quem Somos'),
-            onTap: (() => null),
+          ListTile(
+            leading: const Icon(Icons.password),
+            title: Text('Configurar senha'),
+            onTap: (() {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
+            }),
           ),
-          */
           ListTile(
             leading: const Icon(Icons.help),
-            title: Text('Ajuda e Contato'),
+            title: Text('Ajuda'),
             onTap: (() => null),
           ),
           ListTile(
             leading: const Icon(Icons.logout_rounded),
             title: Text('Logout'),
             onTap: (() {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const LoginApp()),
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()),
               );
             }),
           ),
@@ -98,7 +100,10 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: Text('Sair'),
-            onTap: (() { closeAppUsingExit();}),
+            onTap: (() {
+                closeAppUsingExit();
+              }
+            ),
           ),
           Divider(),
         ],

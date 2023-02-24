@@ -87,7 +87,7 @@ class _RegisterDateState extends State<RegisterDate> {
               onPressed: () {
                 // CONTINUAR AGENDAMENTO ...
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const Clock()),
+                  MaterialPageRoute(builder: (context) => TimeSlotsPage()),
                 );
               },
               child: const Text(

@@ -201,6 +201,20 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
+                          style: theme_button_general,
+                          onPressed: () {
+                            // Ação que será executada ao pressionar o botão "Voltar"
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Voltar',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.textColor
+                            )
+                          ),
+                        ),
+                      const SizedBox(width: 40),
+                      ElevatedButton(
                         style: theme_button_general,
                         onPressed: () async{
                             // Ação que será executada ao pressionar o botão "Cadastro 2"
@@ -217,58 +231,16 @@ class _RegisterState extends State<Register> {
                             }
                           }
                         },
-                          child: Text('Cadastrar',
+                          child: const Text('Cadastrar',
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColors.textColor
                             )
                           ),
                         ),
-                        const SizedBox(width: 40),
-                        ElevatedButton(
-                          style: theme_button_general,
-                          onPressed: () {
-                            // Ação que será executada ao pressionar o botão "Voltar"
-                            Navigator.pop(context);
-                          },
-                          child: Text('Voltar',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.textColor
-                            )
-                          ),
-                        ),
+                        
                       ],
                   ),
-                
-                /*
-                Container(
-                  child: ElevatedButton(
-                    style: theme_button_general,
-                    onPressed: () async{
-                    if(_formKey.currentState!.validate()){
-                        int register = await submitRegisterUserApi(
-                          _nomeController.text, _sobrenomeController.text,_emailController.text,
-                          _cpfController.text, _senhaController.text, level, addr, social);
-                        if(register == 200){
-                        /*Cadastro concluído com sucesso*/
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoCadastro()));
-                        }
-                        else{
-                          print('Código de registro = $register');
-                        }
-                      
-                      }
-                    },
-                    child: const Text(
-                      'Cadastrar',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: AppColors.textColor
-                        )
-                      ),
-                    ),
-                ),*/
             ],
           ),
         ),
