@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../ip_api.dart';
+import '../../models/contato.dart';
 import '../admin/home_page_admin.dart';
 
 
@@ -24,20 +25,21 @@ Future<int> submitLoginApi(var email, var password) async {
   const myIp = IpApi.myIp;
   const String apiUrl = "http://$myIp/phpApi/public_html/api/login";
   String parametros = 'email=$email&password=$password';
-  var result = '';
   UserActiveApp userActive = UserActiveApp();
+  ContatoApp contato = ContatoApp();
   try {
     http.Response response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
       body: parametros,
     );
-    Map<String, dynamic> dados_api = jsonDecode(response.body);
+    Map<String, dynamic> dadosApi = jsonDecode(response.body);
     //String json = jsonEncode(json_resposta);
     //Map<String, dynamic> dados = jsonDecode(json_resposta['data']);
     if (response.statusCode == 200) {
       print("Requisição bem sucedida: ${response.body}");
-      userActive.idUserActive(dados_api['data']['id']);
+      userActive.idUserActive(dadosApi['data']['id']);
+      contato.getContatoApp();
       return response.statusCode;
     } else {
       print("Requisição não sucedida: ${response.statusCode}");
@@ -54,6 +56,7 @@ class _LoginAppState extends State<LoginApp> {
   final _fromKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
+  int time = 4;
 
   final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
@@ -63,6 +66,8 @@ class _LoginAppState extends State<LoginApp> {
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
   );
+
+
   
   @override
   Widget build(BuildContext context) {
@@ -158,15 +163,24 @@ class _LoginAppState extends State<LoginApp> {
                         
                       }
                       else{
-                        /*
-                        setState(() {
-                          _emailController.text = '';
-                          _senhaController.text = '';
-                        });*/
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Email ou senha inválida! Por favor, insira dados válidos!'),
+                            duration: Duration(seconds: 4),
+                            backgroundColor: AppColors.secundaryColor,
+                          ),
+                        );
                       }
                     }
                     else{
                       //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Email ou senha inválida! Por favor, insira dados válidos!'),
+                        duration: Duration(seconds: 4),
+                        backgroundColor: AppColors.secundaryColor,
+                      ),
+                    );
                     }
                   },
                   child: const Text('Entrar',style: TextStyle(fontSize: 20,color: AppColors.textColor)),

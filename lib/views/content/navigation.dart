@@ -4,8 +4,10 @@ import 'package:enne_barbearia/views/content/password_change.dart';
 import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:flutter/material.dart';
+import '../../models/contato.dart';
 import '../../models/userActive.dart';
 import '../theme/app_colors.dart';
+import 'contato_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -31,7 +33,6 @@ class _NavigationState extends State<Navigation> {
     id = UserActiveApp.idUser;
     name = UserActiveApp.nameUser;
     email = UserActiveApp.emailUser;
-
   }
   
   @override
@@ -69,12 +70,6 @@ class _NavigationState extends State<Navigation> {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()),);
             }),
           ),
-          ListTile(
-            leading: const Icon(Icons.email),
-            title: const Text('Contato'),
-            onTap: (() {
-            }),
-          ),
           //const Divider(),
           ListTile(
             leading: const Icon(Icons.password),
@@ -84,9 +79,19 @@ class _NavigationState extends State<Navigation> {
             }),
           ),
           ListTile(
+            leading: const Icon(Icons.email),
+            title: const Text('Contato'),
+            onTap: (() async {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContatoPage()),);
+              
+            }),
+          ),
+          ListTile(
             leading: const Icon(Icons.help),
             title: Text('Ajuda'),
-            onTap: (() => null),
+            onTap: (() {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContatoPage()),);
+            }),
           ),
           ListTile(
             leading: const Icon(Icons.logout_rounded),

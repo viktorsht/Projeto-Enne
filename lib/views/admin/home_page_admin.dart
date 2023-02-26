@@ -1,7 +1,9 @@
+import 'package:enne_barbearia/views/admin/profile_admin.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../content/cadastre_user.dart';
+import '../content/password_change.dart';
 
 class CrudScreenAdmin extends StatelessWidget {
   CrudScreenAdmin({Key? key}) : super(key: key);
@@ -36,7 +38,17 @@ class CrudScreenAdmin extends StatelessWidget {
 
                 },
                 style: button_crud,
-                child: Text('Cadastrar Usuário'),
+                child: Text('Cadastrar Usuário *'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Ação do botão "Listar"
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreenAdmin()),);
+                },
+                style: button_crud,
+                
+                child: Text('Perfil do Admistrador *'),
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
@@ -53,7 +65,15 @@ class CrudScreenAdmin extends StatelessWidget {
                   // Ação do botão "Editar"
                 },
                 style: button_crud,
-                child: Text('Editar Data ou Hora'),
+                child: Text('Dias de Funcionamento'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Ação do botão "Editar"
+                },
+                style: button_crud,
+                child: Text('Horários de Funfionamento'),
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
@@ -61,7 +81,16 @@ class CrudScreenAdmin extends StatelessWidget {
                   // Ação do botão "Excluir"
                 },
                 style: button_crud,
-                child: Text('Editar Serviço'),
+                child: Text('Serviços Disponíveis'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Ação do botão "Excluir"
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
+                },
+                style: button_crud,
+                child: Text('Configurar Senha *'),
               ),
             ],
           ),
@@ -71,6 +100,6 @@ class CrudScreenAdmin extends StatelessWidget {
   }
 }
 
-//import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';ProfileScreenAdmin
 
 
