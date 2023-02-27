@@ -82,13 +82,20 @@ class _LoginAppState extends State<LoginApp> {
           child: ListView(
           children: <Widget>[
             SizedBox(
-              width: 300,
-              height: 300,
+              width: 200,
+              height: 200,
               child: Image.asset('assets/logo.png'),
             ),
-            // ignore: prefer_const_constructors
-            SizedBox(
-              height: 35,
+            const SizedBox(height: 35,),
+            const Center(
+              child: Text(
+                'Login', 
+                style: TextStyle(
+                  fontWeight: FontWeight.bold, 
+                  fontSize: 25, 
+                  color: AppColors.textColor, 
+                )
+              ),
             ),
               TextFormField(
                 controller: _emailController,

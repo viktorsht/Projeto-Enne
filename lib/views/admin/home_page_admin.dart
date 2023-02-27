@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import '../content/cadastre_user.dart';
 import '../content/login_app.dart';
 import '../content/password_change.dart';
-import '../content/r.dart';
+
 class CrudScreenAdmin extends StatelessWidget {
   CrudScreenAdmin({Key? key}) : super(key: key);
 
   final ButtonStyle button_crud = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.secundaryColor,
+    backgroundColor: Color.fromARGB(255, 240, 41, 41),
     padding: EdgeInsets.symmetric(vertical: 16.0),
     minimumSize: Size(double.infinity, 48.0),
     textStyle: TextStyle(fontSize: 18.0),
@@ -62,7 +62,7 @@ class CrudScreenAdmin extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Ação do botão "Listar" TwoElevatedButtonScreen
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TwoElevatedButtonScreen()),);
+                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TwoElevatedButtonScreen()),);
                   },
                   style: button_crud,
                   

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:enne_barbearia/views/content/help_screen.dart';
 import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/content/password_change.dart';
 import 'package:enne_barbearia/views/content/profile_screen.dart';
@@ -90,7 +91,7 @@ class _NavigationState extends State<Navigation> {
             leading: const Icon(Icons.help),
             title: Text('Ajuda'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContatoPage()),);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpScreen()),);
             }),
           ),
           ListTile(
