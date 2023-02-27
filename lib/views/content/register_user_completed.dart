@@ -49,10 +49,13 @@ class RegUserCompletedState extends State<RegUserCompleted> {
 }
 */
 
+import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
+
+import '../admin/home_page_admin.dart';
 
 
 void successAlertBox(BuildContext context, String title, String message) {
@@ -108,7 +111,12 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
+                if(UserActiveApp.idUser == '1'){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                }
+                else{
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
+                }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },
               child: Text('OK', style: TextStyle(

@@ -5,6 +5,9 @@ import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
+import '../../models/userActive.dart';
+import '../admin/home_page_admin.dart';
+
 
 void successAlertBox(BuildContext context, String title, String message) {
   showDialog(
@@ -41,8 +44,8 @@ class TelaConfirmacaoUpdate extends StatelessWidget {
               height: 200,
               width: 200,
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Atualização de dados concluída',
               style: TextStyle(
                 color: AppColors.textColor,
@@ -59,7 +62,12 @@ class TelaConfirmacaoUpdate extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                if(UserActiveApp.idUser == '1'){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                }
+                else{
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },
               child: Text('OK', style: TextStyle(

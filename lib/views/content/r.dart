@@ -1,3 +1,55 @@
+import 'package:flutter/material.dart';
+
+class TwoElevatedButtonScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Two Elevated Button Screen'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          //Expanded(
+            //child: 
+            SizedBox(height: 30,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () => print('Pressed Button 1'),
+                  child: Text('Button 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () => print('Pressed Button 2'),
+                  child: Text('Button 2'),
+                ),
+              ],
+            ),
+          //),
+          //Expanded(
+            //child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () => print('Pressed Button 1'),
+                  child: Text('Button 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () => print('Pressed Button 2'),
+                  child: Text('Button 2'),
+                ),
+              ],
+            ),
+          //),
+        ],
+      ),
+    );
+  }
+}
+/*
+
 import 'dart:io';
 
 import 'package:enne_barbearia/views/admin/profile_admin.dart';
@@ -45,7 +97,7 @@ class CrudScreenAdmin extends StatelessWidget {
 
                   },
                   style: button_crud,
-                  child: const Text('Cadastrar Usuário *'),
+                  child: Text('Cadastrar Usuário *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -55,7 +107,7 @@ class CrudScreenAdmin extends StatelessWidget {
                   },
                   style: button_crud,
                   
-                  child: const Text('Perfil do Admistrador *'),
+                  child: Text('Perfil do Admistrador *'),
                 ),
                 const SizedBox(height: 16.0),
     
@@ -66,7 +118,7 @@ class CrudScreenAdmin extends StatelessWidget {
                   },
                   style: button_crud,
                   
-                  child: const Text('Listar Agenda'),
+                  child: Text('Listar Agenda'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -74,23 +126,23 @@ class CrudScreenAdmin extends StatelessWidget {
                     // Ação do botão "Editar"
                   },
                   style: button_crud,
-                  child: const Text('Dias de Funcionamento'),
+                  child: Text('Dias de Funcionamento'),
                 ),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     // Ação do botão "Editar"
                   },
                   style: button_crud,
-                  child: const Text('Horários de Funfionamento'),
+                  child: Text('Horários de Funfionamento'),
                 ),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     // Ação do botão "Excluir"
                   },
                   style: button_crud,
-                  child: const Text('Serviços Disponíveis'),
+                  child: Text('Serviços Disponíveis'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -99,7 +151,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
                   },
                   style: button_crud,
-                  child: const Text('Configurar Senha *'),
+                  child: Text('Configurar Senha *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -121,3 +173,8 @@ class CrudScreenAdmin extends StatelessWidget {
     //);
   }
 }
+
+//import 'package:flutter/material.dart';ProfileScreenAdmin
+
+
+*/
