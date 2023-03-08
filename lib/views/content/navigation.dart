@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:enne_barbearia/app.dart';
 import 'package:enne_barbearia/views/content/help_screen.dart';
 import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/content/password_change.dart';
@@ -39,6 +40,7 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColors.whiteGrayColor,
       child: ListView(
         padding: EdgeInsets.zero,
           children: [
@@ -49,7 +51,7 @@ class _NavigationState extends State<Navigation> {
             currentAccountPicture: CircleAvatar(
               child: ClipOval(child: Image.asset('assets/logo.png', fit: BoxFit.cover)),
             ),
-            decoration: const BoxDecoration(color: AppColors.secundaryColor),
+            decoration: const BoxDecoration(color: AppColors.red),
           ),
           ListTile(
             leading: const Icon(Icons.schedule),

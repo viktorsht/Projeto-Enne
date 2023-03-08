@@ -27,12 +27,14 @@ Future<int> submitLoginApi(var email, var password) async {
   String parametros = 'email=$email&password=$password';
   UserActiveApp userActive = UserActiveApp();
   ContatoApp contato = ContatoApp();
+  print('Iniciando login na API');
   try {
     http.Response response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
       body: parametros,
     );
+  print('Obtendo informações de login na API');
     Map<String, dynamic> dadosApi = jsonDecode(response.body);
     //String json = jsonEncode(json_resposta);
     //Map<String, dynamic> dados = jsonDecode(json_resposta['data']);
@@ -111,7 +113,7 @@ class _LoginAppState extends State<LoginApp> {
                     fontSize: 20,
                     ),
                 ),
-                style: TextStyle(fontSize: 20, color: AppColors.backColor),
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
                 validator: (login){
                   if(login == null || login.isEmpty){
                     return 'login vazio!';

@@ -40,71 +40,45 @@ class _ContentPageState extends State<ContentPage>
       ),
   );
 
-
     return Scaffold(
       //bakccolor: AppColors.primaryColor,
       backgroundColor: AppColors.primaryColor,
-      drawer: Navigation(),
+      drawer: const Navigation(),
       appBar: AppBar(
         title: const Text('Enne'),
         centerTitle: true,
         backgroundColor: AppColors.secundaryColor,
         actions: [
           IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
-          }, icon: Icon(Icons.person))
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          }, icon: const Icon(Icons.person))
         ],
       ),
-      body: Container(
-        child: ListView(
-        children: [
-        SizedBox(
-              width: 150,
-              height: 160,
-              child: Image.asset('assets/logo.png'),
+      body: ListView(
+      children: [
+      SizedBox(
+            width: 150,
+            height: 160,
+            child: Image.asset('assets/logo.png'),
+      ),
+      const SizedBox(height: 380,),
+      ElevatedButton(
+        style: theme_button_general,
+        onPressed: () {
+          //Cadastro concluído com sucesso
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const RegisterService()),
+          );
+        },
+        child: const Text(
+          'Agendar agora!',
+          style: TextStyle(
+            fontSize: 25,
+            color: AppColors.textColor
+            )
+          ),
         ),
-        SizedBox(height: 300,),
-        Container(
-            child: ElevatedButton(
-              style: theme_button_general,
-              onPressed: () {
-                //Cadastro concluído com sucesso
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const RegisterService()),
-                );
-              },
-              child: const Text(
-                'Agendar agora!',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: AppColors.textColor
-                  )
-                ),
-              ),
-            ),
-            /*
-            SizedBox(height: 15,),
-            Container(
-            child: ElevatedButton(
-              style: theme_button_general,
-              onPressed: () {
-                /*Cadastro concluído com sucesso
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const (RegisterService)),
-                );
-                */
-              },
-              child: const Text(
-                'Quem Somos',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.textColor
-                  )
-                ),
-            ),
-              ),*/
-          ]
-        )
+        ]
       ),
     );
   }
