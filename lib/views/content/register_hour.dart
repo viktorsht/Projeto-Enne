@@ -1,98 +1,133 @@
 import 'dart:convert';
 
+import 'package:enne_barbearia/views/content/confirm_schedule.dart';
+import 'package:enne_barbearia/views/content/register_scheduling.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/src/widgets/framework.dart';
-//import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart' as http;
 import '../../ip_api.dart';
+import '../../models/service.dart';
 import '../theme/app_colors.dart';
 
-class RegisterHour extends StatefulWidget {
-  const RegisterHour({super.key});
+/*
+faça um Get numa api e salve os dados de ['data']['time'] em uma lista de string para ser usada em uma ListView no Flutter
+incremente o que foi feito anteriormente com um checkBox onde o usuário só pode selecionar um único item da listView
+ */
 
+class RegisterHour extends StatefulWidget {
   @override
-  State<RegisterHour> createState() => _RegisterHourState();
+  _RegisterHourState createState() => _RegisterHourState();
 }
 
 class _RegisterHourState extends State<RegisterHour> {
 
-  List<String> items = [];
-  List<int> hora = [];
-  //List<dynamic> _dados = [];
-  int _selectedIndex = -1;
-  void _carregarDados() async {
-      const myIp = IpApi.myIp;
-      var url = Uri.parse('http://$myIp/phpApi/public_html/api/timeActive/1');
-      //http://localhost/phpApi/public_html/api/timeActive/1
-      var response = await http.get(url);
+  SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
 
-      try {
-        if (response.statusCode == 200) {
-          //print("Estou fazendo get do contato");
-          var jsonResponse = jsonDecode(response.body);
-          print('Dados do usuário: ${jsonResponse['data']}');
-          //email = jsonResponse['data']['email'];
-          //telefone = jsonResponse['data']['phone'];
-          hora.add(jsonResponse['data']['time']);
-        } else {
-          print('Erro ao fazer a requisição. Código de status: ${response.statusCode}');
-        }
-        
-      } catch (e) {
-        print("Erro na requisição: $e");
-      }
+  bool _isLoading = true;
 
+Future<List<String>> getTimeActiveApi() async {
+  const myIp = IpApi.myIp;
+  final response = await http.get(Uri.parse('http://$myIp/phpApi/public_html/api/timeActive/1'));
+  
+  if (response.statusCode == 200) {
+    _isLoading = false;
+    List<dynamic> responseData = jsonDecode(response.body)['data'];
+    List<String> timeList = [];
+
+    for (var data in responseData) {
+      timeList.add(data['time']);
+    }
+
+    return timeList;
+  } else {
+    throw Exception('Requisição falida');
   }
+}
+
+
+  List<String> timeList = [];
+  int _selectedIndex = -1;
 
   @override
   void initState() {
     super.initState();
-    // Inicializa com o get na API
-    _carregarDados();  
+    getTimeActiveApi().then((list) {
+      setState(() {
+        timeList = list;
+      });
+    });
   }
+
+
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+      SchedulingApiAppRequest.hourStart = timeList[_selectedIndex];
+    });
+  }
+
+  final style_buton = ElevatedButton.styleFrom( backgroundColor: AppColors.secundaryColor,minimumSize: const Size(100, 40),);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.whiteGrayColor,
       appBar: AppBar(
-        title: const Text("Selecione a hora", ),
+        title: const Text("Selecione a hora"),
         backgroundColor: AppColors.secundaryColor,
         centerTitle: true,
       ),
       body: Column(
-  children: [
-    Expanded(
-      child: ListView(
-        shrinkWrap: true,
-        children: items.asMap().map((index, item) => MapEntry(index,
-                GestureDetector(onTap: () {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                  },
-                  child: ListTile(
-                    title: Text(item),
-                    leading: _selectedIndex == index
-                        ? Icon(Icons.check)
-                        : null,
+        children: [
+          Expanded(
+            child: _isLoading 
+            ? const Center(child: CircularProgressIndicator())
+            : ListView.builder(
+            itemCount: timeList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return CheckboxListTile(
+                tileColor: AppColors.whiteGrayColor,
+                //tileColor: AppColors.secundaryColor,
+                selectedTileColor: AppColors.secundaryColor,
+                activeColor: AppColors.secundaryColor,
+                title: Text(timeList[index], style: const TextStyle(color: AppColors.primaryColor),),
+                value: _selectedIndex == index,
+                onChanged: (value) => _onItemTap(index),
+                );
+              },
+            ),
+          ),
+          ElevatedButton(
+            style: style_buton,
+            onPressed: () {
+              // CONTINUAR AGENDAMENTO ...
+              
+              if(_selectedIndex == -1){
+                //serviceApi.start = DateTime.now().toString().split(" ")[0];
+                // tem que aparecer um alerta aqui!!!
+              }
+              else{
+                //serviceApi.start = dataIngles;
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AgendamentoCard(
+                    data:SchedulingApiAppRequest.dataEmPtBr, 
+                    servico: SchedulingApiAppRequest.namefkService, 
+                    horario: SchedulingApiAppRequest.hourStart, 
+                    preco: SchedulingApiAppRequest.precoService
+                    )
                   ),
-                )))
-            .values
-            .toList(),
-      ),
-    ),
-    ElevatedButton(
-      onPressed: _selectedIndex == -1
-          ? null
-          : () {
-              // A opção selecionada está no índice "_selectedIndex"
+                );
+              }
+              print('retorno: ' + serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)); // data completa
+              
             },
-      child: Text('Selecionar'),
-    ),
-  ],
-),
-
+            child: const Text(
+              'Prosseguir',
+              style: TextStyle(fontSize: 20,color: AppColors.textColor)
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+

@@ -41,9 +41,9 @@ class TelaConfirmacaoUpdatePass extends StatelessWidget {
               height: 200,
               width: 200,
             ),
-            SizedBox(height: 20),
-            Text(
-              'Atualização de dados concluída',
+            const SizedBox(height: 20),
+            const Text(
+              'Atualização de senha concluída',
               style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 24,

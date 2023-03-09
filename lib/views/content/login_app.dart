@@ -21,7 +21,11 @@ class LoginApp extends StatefulWidget {
   State<LoginApp> createState() => _LoginAppState();
 }
 
-Future<int> submitLoginApi(var email, var password) async {
+
+
+class _LoginAppState extends State<LoginApp> {
+
+  Future<int> submitLoginApi(var email, var password) async {
   const myIp = IpApi.myIp;
   const String apiUrl = "http://$myIp/phpApi/public_html/api/login";
   String parametros = 'email=$email&password=$password';
@@ -52,8 +56,6 @@ Future<int> submitLoginApi(var email, var password) async {
   }
   return 0;
 }
-
-class _LoginAppState extends State<LoginApp> {
 
   final _fromKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();

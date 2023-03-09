@@ -2,7 +2,7 @@
 //import 'package:enne_barbearia/views/content/register_hour.dart';
 import 'package:enne_barbearia/views/content/register_hour.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
-import 'package:enne_barbearia/views/content/selec.dart';
+//import 'package:enne_barbearia/views/content/selec.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -31,9 +31,14 @@ class _RegisterDateState extends State<RegisterDate> {
       if(!isDateInPast(day) &&  day.weekday != DateTime.sunday){ 
         // só habilita dias que são iguais ou posteriores a data de hoje e elimina os domingos.
         today = day;
+        SchedulingApiAppRequest.numeroDiaSemana = day.weekday;
         print(today.toString().split(" ")[0]);
+        //print("Numero dia");
+        //print(SchedulingApiAppRequest.numeroDia);
+        //print(day.weekday);
         dataIngles = today.toString().split(" ")[0]; // printa no console a data selecionada.
         mensagem = dateFormat.format(DateTime.parse(dataIngles)); // converte formado da data para portugues
+        SchedulingApiAppRequest.dataEmPtBr = mensagem;
       }
     });
   }
@@ -45,17 +50,33 @@ class _RegisterDateState extends State<RegisterDate> {
     final now = DateTime.now();
     return date.isBefore(DateTime(now.year, now.month, now.day - 1));
   }
+  int numberOfDay(DateTime day){
+    int numOfDay = 0;
+    if(day.weekday == DateTime.monday){
+      numOfDay = 1;
+    }
+    else if(day.weekday == DateTime.monday){
+      numOfDay = 2;
+    }
+    else if(day.weekday == DateTime.tuesday){
+      numOfDay = 3;
+    }
+    else if(day.weekday == DateTime.wednesday){
+      numOfDay = 4;
+    }
+    else if(day.weekday == DateTime.thursday){
+      numOfDay = 5;
+    }
+    else if(day.weekday == DateTime.friday){
+      numOfDay = 6;
+    }
+    else{
+      numOfDay = 7;
+    }
+    return numOfDay;
+  }
 
   final style_buton = ElevatedButton.styleFrom( backgroundColor: AppColors.secundaryColor,minimumSize: const Size(100, 40),);
-
-  List<String> items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
-];
-int _selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +140,14 @@ int _selectedIndex = -1;
                 style: style_buton,
                 onPressed: () {
                   // CONTINUAR AGENDAMENTO ...
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterHour()),);
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterHour()),);
                   if(dataIngles == ''){
-                    serviceApi.start = DateTime.now().toString().split(" ")[0];
+                    SchedulingApiAppRequest.dateStart = DateTime.now().toString().split(" ")[0];
                   }
                   else{
-                    serviceApi.start = dataIngles;
+                    SchedulingApiAppRequest.dateStart = dataIngles;
                   }
-                  print(serviceApi.start);
+                  print(SchedulingApiAppRequest.dateStart);
                 },
                 child: const Text(
                   'Prosseguir',

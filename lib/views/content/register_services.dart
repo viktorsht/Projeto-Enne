@@ -87,8 +87,11 @@ class _RegisterServiceState extends State<RegisterService> {
                   onChanged: (valor) {
                   setState(() {
                     _valorSelecionado = valor;
-                    serviceApi.fkService =  _valorSelecionado['id'];
-                    //print(serviceApi.fkService);
+                    SchedulingApiAppRequest.idfkService = _valorSelecionado['id'];
+                    SchedulingApiAppRequest.namefkService = _valorSelecionado['name'];
+                    SchedulingApiAppRequest.durationfkService = _valorSelecionado['duration'];
+                    serviceApi.getPrecoServiceApi();
+                    print(SchedulingApiAppRequest.idfkService);
                     // O valor do valor selecionado é salvo para poder fazer o agendamento
                   });
                   },
