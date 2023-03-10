@@ -12,62 +12,17 @@ class Agendamento {
   String nome;
   String servico;
   String horario;
+  String dia;
   String preco;
 
-  Agendamento({required this.nome, required this.servico, required this.horario, required this.preco});
+  Agendamento({
+    required this.nome, 
+    required this.servico, 
+    required this.dia, 
+    required this.horario, 
+    required this.preco
+    });
 }
-/*
-class ApiService {
-  List<dynamic> _dados = [];
-
-  static Future<String> _carregarDados(String id_service) async {
-    String myIp = IpApi.myIp;
-    var url = Uri.parse('http://$myIp/phpApi/public_html/api/service/$id_service');
-    var response = await http.get(url);
-    var dados = jsonDecode(response.body);
-    return dados['data']['name'];
-  }
-
-  static Future<List<Agendamento>> getAgendamentos() async {
-    String myIp = IpApi.myIp;
-    String id = UserActiveApp.idUser;
-    var url = 'http://$myIp/phpApi/public_html/api/scheduling/$id';
-    var response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      var jsonResponse = response.body;
-      if (jsonResponse != null && jsonResponse.isNotEmpty) {
-        dynamic decoded = jsonDecode(jsonResponse);
-        decoded = decoded['data'];
-        dynamic service = decoded['data']['fk_service'];
-        //print(service);
-        service = _carregarDados(service.toString());
-        print("Service: ${service}");
-        if (decoded is List) {
-          return decoded.map((agendamento) => Agendamento(
-            nome: agendamento['name'],
-            servico: agendamento['fk_service'],
-            horario: agendamento['start']
-          )).toList();
-        } else if (decoded is Map<String, dynamic>) {
-          return [Agendamento(
-            nome: decoded['name'],
-            servico: decoded['fk_service'],
-            horario: decoded['start']
-          )];
-          //print("Estou aqui");
-        } else {
-          throw Exception('Resposta inválida da API');
-        }
-      } else {
-        throw Exception('Corpo da resposta é nulo ou vazio');
-      }
-    } else {
-      throw Exception('Falha ao carregar agendamentos');
-    }
-  }
-}
-*/
 
 class ApiService {
   List<dynamic> _dados = [];
@@ -98,17 +53,18 @@ class ApiService {
           return Future.wait(decoded.map((agendamento) async => Agendamento(
             nome: agendamento['name'],
             servico: await _carregarDados(agendamento['fk_service'].toString()),
-            //horario: agendamento['start']
-            horario: dateFormat.format(DateTime.parse(agendamento['start'].toString().split(" ")[0])),
+            horario: (String dataHora) {
+              List<String> partes = dataHora.split(' ');
+              String hora = partes[1];
+              return hora;
+            }(agendamento['start']),
+            dia: dateFormat.format(DateTime.parse(agendamento['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
-              String myIp = IpApi.myIp;
+              //String myIp = IpApi.myIp;
               var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idService');
-              //var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idfkService');
               var response = await http.get(url);
-          
               if (response.statusCode == 200) {
                 var dados = jsonDecode(response.body);
-                //print('Dados do usuário: ${dados['data']}');
                 return dados['data']['price'];
             }
           }(agendamento['fk_service'].toString()),
@@ -117,17 +73,18 @@ class ApiService {
           return [Agendamento(
             nome: decoded['name'],
             servico: await _carregarDados(decoded['fk_service'].toString()),
-            //horario: decoded['start']
-            horario: dateFormat.format(DateTime.parse(decoded['start'].toString().split(" ")[0])),
+            horario: (String dataHora) {
+              List<String> partes = dataHora.split(' ');
+              String hora = partes[1];
+              return hora;
+            }(decoded['start']),
+            dia: dateFormat.format(DateTime.parse(decoded['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
-              String myIp = IpApi.myIp;
+              //String myIp = IpApi.myIp;
               var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idService');
-              //var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idfkService');
               var response = await http.get(url);
-          
               if (response.statusCode == 200) {
                 var dados = jsonDecode(response.body);
-                //print('Dados do usuário: ${dados['data']}');
                 return dados['data']['price'];
             }
           }(decoded['fk_service'].toString()),
@@ -198,15 +155,15 @@ class _MyScheduleState extends State<MySchedule> {
                   ),
                   //subtitle: Text('${appointment.servico} - ${appointment.horario.toString()}'),
                   subtitle: Text(
-                    'Serviço: ${appointment.servico}   Horário: ${appointment.horario}  Preço: R\$ ${appointment.preco}', 
+                    'Serviço: ${appointment.servico} Dia: ${appointment.dia} Horário: ${appointment.horario} Preço: R\$ ${appointment.preco}', 
                     //textAlign: TextAlign.justify,
                     //softWrap: true,
-              style: const TextStyle(
-                color: AppColors.primaryColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                ),
-              ),
+                  style: const TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   trailing: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.secundaryColor,

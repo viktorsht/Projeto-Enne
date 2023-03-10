@@ -1,5 +1,5 @@
 class IpApi{
   
-  static String myIp = '10.180.41.163';
+  static String myIp = '10.180.42.68';
 
 }
