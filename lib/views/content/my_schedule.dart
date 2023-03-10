@@ -154,15 +154,42 @@ class _MyScheduleState extends State<MySchedule> {
                     ),
                   ),
                   //subtitle: Text('${appointment.servico} - ${appointment.horario.toString()}'),
-                  subtitle: Text(
-                    'Serviço: ${appointment.servico} Dia: ${appointment.dia} Horário: ${appointment.horario} Preço: R\$ ${appointment.preco}', 
-                    //textAlign: TextAlign.justify,
-                    //softWrap: true,
-                  style: const TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Serviço: ${appointment.servico}', 
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Dia: ${appointment.dia}', 
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Hora: ${appointment.horario}', 
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Preço: R\$ ${appointment.preco}', 
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                   trailing: ElevatedButton(
                     style: ElevatedButton.styleFrom(
