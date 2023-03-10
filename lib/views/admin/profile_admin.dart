@@ -15,8 +15,8 @@ class ProfileScreenAdmin extends StatefulWidget {
 
 
 Future<int> submitUpdateUserApi(var id, var nome, var snome, var email, var cpf, var password, var level, var addr, var social) async {
-  const myIp = IpApi.myIp;
-  const String apiUrl = "http://$myIp/phpApi/public_html/api/updateUser/";
+  String myIp = IpApi.myIp;
+  String apiUrl = "http://$myIp/phpApi/public_html/api/updateUser/";
   String parametros = 'id=$id&name=$nome&surname=$snome&email=$email&cpf=$cpf&password=$password&fk_level=$level&fk_address=$addr&fk_social=$social';
   try {
     http.Response response = await http.post(

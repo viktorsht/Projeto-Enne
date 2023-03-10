@@ -25,7 +25,7 @@ class _RegisterServiceState extends State<RegisterService> {
   dynamic _valorSelecionado;
   SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
   Future<void> _carregarDados() async {
-    const myIp = IpApi.myIp;
+    String myIp = IpApi.myIp;
     var url = Uri.parse('http://$myIp/phpApi/public_html/api/service');
     var response = await http.get(url);
     var dados = jsonDecode(response.body);
@@ -90,7 +90,7 @@ class _RegisterServiceState extends State<RegisterService> {
                     SchedulingApiAppRequest.idfkService = _valorSelecionado['id'];
                     SchedulingApiAppRequest.namefkService = _valorSelecionado['name'];
                     SchedulingApiAppRequest.durationfkService = _valorSelecionado['duration'];
-                    serviceApi.getPrecoServiceApi();
+                    serviceApi.getPrecoServiceApi(SchedulingApiAppRequest.idfkService);
                     print(SchedulingApiAppRequest.idfkService);
                     // O valor do valor selecionado é salvo para poder fazer o agendamento
                   });

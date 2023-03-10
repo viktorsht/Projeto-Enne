@@ -33,14 +33,13 @@ void successAlertBox(BuildContext context, String title, String message) {
 }
 
 
-bool _isLoading = true;
 
 
 // post do agendamento!
 
   Future<int> submitSchedulingAPI(var start, var end, var service, var client, var employee, var city) async {
-  const myIp = IpApi.myIp;
-  const String apiUrl = "http://$myIp/phpApi/public_html/api/scheduling";
+  String myIp = IpApi.myIp;
+  String apiUrl = "http://$myIp/phpApi/public_html/api/scheduling";
   String parametros = 'start=$start&end=$end&fk_service=$service&fk_client=$client&fk_employee=$employee&fk_city=$city';
   //UserActiveApp userActive = UserActiveApp();
   print('Iniciando agendamento na API');
@@ -74,6 +73,8 @@ class RegisterScheduling extends StatefulWidget {
   @override
   State<RegisterScheduling> createState() => _RegisterSchedulingState();
 }
+
+bool _isLoading = true;
 
 class _RegisterSchedulingState extends State<RegisterScheduling> {
    @override

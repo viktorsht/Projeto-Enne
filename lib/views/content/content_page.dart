@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/navigation.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../../ip_api.dart';
 
 
 class ContentPage extends StatefulWidget {
@@ -12,20 +18,40 @@ class ContentPage extends StatefulWidget {
   State<ContentPage> createState() => _ContentPageState();
 }
 
-class _ContentPageState extends State<ContentPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+class _ContentPageState extends State<ContentPage>{
+
+  List<String> scheduleList = [];
+
+  bool _isLoading = true;
+
+  Future<List<String>> getSchedulingUser() async {
+    String myIp = IpApi.myIp;
+    String id = UserActiveApp.idUser;
+    String url = 'http://$myIp/phpApi/public_html/api/scheduling/$id';
+    print(id);
+    final response = await http.get(Uri.parse(url));
+    
+    if (response.statusCode == 200) {
+      _isLoading = false;
+      List<dynamic> responseData = jsonDecode(response.body)['data'];
+      List<String> scheduleList = [];
+
+      for (var data in responseData) {
+        scheduleList.add(data['start']);
+      }
+
+      return scheduleList;
+    } else {
+      throw Exception('Requisição falida');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    //getSchedulingUser().then((list) {setState(() {scheduleList = list;});});
+    getSchedulingUser();
+    print("Lista de Agendas: $scheduleList");
   }
 
   @override
@@ -33,8 +59,8 @@ class _ContentPageState extends State<ContentPage>
 
     final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(100, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20.0),
+      minimumSize: const Size(100, 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
@@ -51,34 +77,34 @@ class _ContentPageState extends State<ContentPage>
         actions: [
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
-          }, icon: const Icon(Icons.person))
+          },
+        icon: const Icon(Icons.person)),
         ],
       ),
-      body: ListView(
-      children: [
-      SizedBox(
-            width: 150,
-            height: 160,
-            child: Image.asset('assets/logo.png'),
-      ),
-      const SizedBox(height: 380,),
-      ElevatedButton(
-        style: theme_button_general,
-        onPressed: () {
-          //Cadastro concluído com sucesso
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const RegisterService()),
-          );
-        },
-        child: const Text(
-          'Agendar agora!',
-          style: TextStyle(
-            fontSize: 25,
-            color: AppColors.textColor
-            )
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox( width: 150, height: 160, child: Image.asset('assets/logo.png'),),
+              const SizedBox(height: 16,),
+              ElevatedButton(
+                style: theme_button_general,
+                onPressed: () {
+                //Cadastro concluído com sucesso
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),);
+                },
+                child: const Text(
+                  'Agendar agora!',
+                  style: TextStyle(
+                    fontSize: 25, color: AppColors.textColor
+                  )
+                ),
+              ),
+            ]
           ),
         ),
-        ]
       ),
     );
   }

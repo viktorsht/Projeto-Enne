@@ -8,7 +8,7 @@ class ContatoApp {
   static String telefone = '';
 
   void getContatoApp() async {
-      const myIp = IpApi.myIp;
+      String myIp = IpApi.myIp;
       var url = Uri.parse('http://$myIp/phpApi/public_html/api/contato');
       var response = await http.get(url);
 

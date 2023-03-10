@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:enne_barbearia/models/userActive.dart';
+import 'package:enne_barbearia/views/content/my_schedule.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/cadastre_user.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
@@ -26,8 +27,9 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
 
   Future<int> submitLoginApi(var email, var password) async {
-  const myIp = IpApi.myIp;
-  const String apiUrl = "http://$myIp/phpApi/public_html/api/login";
+  String myIp = IpApi.myIp;
+  String apiUrl = "http://$myIp/phpApi/public_html/api/login";
+  print(apiUrl);
   String parametros = 'email=$email&password=$password';
   UserActiveApp userActive = UserActiveApp();
   ContatoApp contato = ContatoApp();
@@ -65,14 +67,12 @@ class _LoginAppState extends State<LoginApp> {
   final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
       minimumSize: Size(130, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
   );
 
-
-  
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors

@@ -1,12 +1,14 @@
 import 'dart:io';
-import 'package:enne_barbearia/app.dart';
+//import 'package:enne_barbearia/app.dart';
+import 'package:enne_barbearia/views/content/my_schedule.dart';
 import 'package:enne_barbearia/views/content/help_screen.dart';
 import 'package:enne_barbearia/views/content/login_app.dart';
+import 'package:enne_barbearia/views/content/my_schedule.dart';
 import 'package:enne_barbearia/views/content/password_change.dart';
 import 'package:enne_barbearia/views/content/profile_screen.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:flutter/material.dart';
-import '../../models/contato.dart';
+//import '../../models/contato.dart';
 import '../../models/userActive.dart';
 import '../theme/app_colors.dart';
 import 'contato_page.dart';
@@ -64,7 +66,9 @@ class _NavigationState extends State<Navigation> {
           ListTile(
             leading: const Icon(Icons.schedule_send),
             title: const Text('Minha agenda'),
-            onTap: (() => null),
+            onTap: (() {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MySchedule()),);
+            }),
           ),
           ListTile(
             leading: const Icon(Icons.person),

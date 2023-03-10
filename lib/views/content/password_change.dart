@@ -32,8 +32,8 @@ class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
   String? _errorMessage;
 
   Future<int> trocarSenhaAPI(var id, var password) async {
-  const myIp = IpApi.myIp;
-  const String apiUrl = "http://$myIp/phpApi/public_html/api/password";
+  String myIp = IpApi.myIp;
+  String apiUrl = "http://$myIp/phpApi/public_html/api/password";
   String parametros = 'id=$id&password=$password';
   try {
     http.Response response = await http.post(

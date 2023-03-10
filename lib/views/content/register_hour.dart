@@ -25,8 +25,10 @@ class _RegisterHourState extends State<RegisterHour> {
   bool _isLoading = true;
 
 Future<List<String>> getTimeActiveApi() async {
-  const myIp = IpApi.myIp;
-  final response = await http.get(Uri.parse('http://$myIp/phpApi/public_html/api/timeActive/1'));
+  String myIp = IpApi.myIp;
+  String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
+  final response = await http.get(Uri.parse('http://$myIp/phpApi/public_html/api/timeActive/$day'));
+  print("Dia da semana $day");
   
   if (response.statusCode == 200) {
     _isLoading = false;

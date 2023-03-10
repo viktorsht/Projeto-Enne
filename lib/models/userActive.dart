@@ -16,7 +16,7 @@ class UserActiveApp {
     getUser();
   }
   void getUser() async {
-      const myIp = IpApi.myIp;
+      String myIp = IpApi.myIp;
       var url = Uri.parse('http://$myIp/phpApi/public_html/api/user/$idUser');
       var response = await http.get(url);
 
