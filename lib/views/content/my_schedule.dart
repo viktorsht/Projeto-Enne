@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:enne_barbearia/views/content/deleted_completed.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,13 +15,15 @@ class Agendamento {
   String horario;
   String dia;
   String preco;
+  String idAgendamento;
 
   Agendamento({
     required this.nome, 
     required this.servico, 
     required this.dia, 
     required this.horario, 
-    required this.preco
+    required this.preco,
+    required this.idAgendamento
     });
 }
 
@@ -68,6 +71,7 @@ class ApiService {
                 return dados['data']['price'];
             }
           }(agendamento['fk_service'].toString()),
+          idAgendamento: agendamento['scheduling_id'],
           )).toList());
         } else if (decoded is Map<String, dynamic>) {
           return [Agendamento(
@@ -88,6 +92,7 @@ class ApiService {
                 return dados['data']['price'];
             }
           }(decoded['fk_service'].toString()),
+          idAgendamento: decoded['scheduling_id'],
           )];
         } else {
           throw Exception('Resposta inválida da API');
@@ -128,6 +133,30 @@ class _MyScheduleState extends State<MySchedule> {
     }
   }
 
+  Future<int> submitDeleteSchedule(String idSchedule) async {
+    String myIp = IpApi.myIp;
+    String apiUrl = "http://$myIp/phpApi/public_html/api/deleteScheduling";
+    String parametros = 'scheduling_id=$idSchedule';
+    try {
+      http.Response response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
+        body: parametros,
+      );
+      Map<String, dynamic> dadosApi = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print("Requisição bem sucedida: ${response.body}");
+        return response.statusCode;
+      } else {
+        print("Requisição não sucedida: ${response.statusCode}");
+        return response.statusCode;
+      }
+    } catch (e) {
+      print("Erro na requisição: $e");
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,7 +174,6 @@ class _MyScheduleState extends State<MySchedule> {
               return Card(
                 color: AppColors.whiteGrayColor,
                 child: ListTile(
-                  //title: Text(appointment.nome),
                   title: Text('Nome: ${appointment.nome}', 
                     style: const TextStyle(
                     color: AppColors.primaryColor,
@@ -153,7 +181,6 @@ class _MyScheduleState extends State<MySchedule> {
                     fontWeight: FontWeight.bold,
                     ),
                   ),
-                  //subtitle: Text('${appointment.servico} - ${appointment.horario.toString()}'),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -200,8 +227,14 @@ class _MyScheduleState extends State<MySchedule> {
                       'Excluir',
                       style: TextStyle(fontSize: 18),
                       ),
-                    onPressed: () {
-                      // Aqui você pode implementar a lógica para excluir o agendamento
+                    onPressed: () async {
+                      // Implementação da remoção do agendamento
+                      int remover = await submitDeleteSchedule(appointment.idAgendamento);
+                      if(remover == 200){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const DeletedCompleted()),
+                        );
+                      }
                     },
                   ),
                 ),

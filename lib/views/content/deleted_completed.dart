@@ -1,3 +1,4 @@
+import 'package:enne_barbearia/views/content/my_schedule.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,7 @@ class _DeletedCompletedState extends State<DeletedCompleted> {
           TextButton(
             //onPressed: () => Navigator.pop(context, 'OK'),
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const ContentPage()),
+              MaterialPageRoute(builder: (context) => MySchedule()),
             ),
             child: const Text(
               'Tela inicial',

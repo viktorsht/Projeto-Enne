@@ -50,7 +50,6 @@ class SchedulingApiAppRequest{
   void getPrecoServiceApi(String idservice) async {
       String myIp = IpApi.myIp;
       var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idservice');
-      //var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idfkService');
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
