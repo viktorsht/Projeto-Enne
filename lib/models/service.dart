@@ -21,7 +21,7 @@ class SchedulingApiAppRequest{
   //String fkCity = '';
 
   String contatenaData(String hora){
-    dateScheduling =  dateStart + ' '+ hora;
+    dateScheduling =  '$dateStart $hora';
     return dateScheduling;
     // concatena data e hora para enviar pra api
   }
@@ -48,16 +48,15 @@ class SchedulingApiAppRequest{
 
 
   void getPrecoServiceApi(String idservice) async {
-      String myIp = IpApi.myIp;
-      var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idservice');
+      var url = Uri.parse('${DataApi.urlBaseApi}price/$idservice');
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        print('Dados do usuário: ${jsonResponse['data']}');
+        //print('Dados do usuário: ${jsonResponse['data']}');
         precoService = jsonResponse['data']['price'];
       } else {
-        print('Erro ao fazer a requisição. Código de status: ${response.statusCode}');
+        //print('Erro ao fazer a requisição. Código de status: ${response.statusCode}');
       }
   }
     

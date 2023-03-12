@@ -3,11 +3,6 @@ import 'dart:convert';
 import 'package:enne_barbearia/models/contato.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-
-
-import '../../ip_api.dart';
 
 class ContatoPage extends StatefulWidget {
   const ContatoPage({super.key});
@@ -21,20 +16,9 @@ class _ContatoPageState extends State<ContatoPage> {
   String phoneNumber = "";
   String email = "";
 
-  final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secundaryColor,
-      //minimumSize: Size(100, 50),
-      //padding: EdgeInsets.symmetric(horizontal: 30),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-  );
-
-
   @override
   void initState() {
     super.initState();
-    // Inicializa os controladores de texto com dados de exemplo
     email = ContatoApp.email;
     phoneNumber = ContatoApp.telefone;
   }
@@ -70,21 +54,6 @@ class _ContatoPageState extends State<ContatoPage> {
                   'E-mail: $email',
                   style: const TextStyle(fontSize: 20, color: AppColors.textColor),
                 ),
-                /*
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  style: theme_button_general,
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: phoneNumber));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Número copiado para a área de transferência'),
-                        duration: Duration(seconds: 1),
-                      ),
-                    );
-                  },
-                  child: Text('Copiar telefone'),
-                ),*/
               ],
             ),
           ),

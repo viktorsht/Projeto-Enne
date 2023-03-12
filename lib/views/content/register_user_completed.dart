@@ -27,6 +27,8 @@ void successAlertBox(BuildContext context, String title, String message) {
 
 
 class TelaConfirmacaoCadastro extends StatelessWidget {
+  const TelaConfirmacaoCadastro({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

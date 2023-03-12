@@ -27,8 +27,8 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
 
   Future<int> submitLoginApi(var email, var password) async {
-  String myIp = IpApi.myIp;
-  String apiUrl = "http://$myIp/phpApi/public_html/api/login";
+  String myIp = DataApi.myIp;
+  String apiUrl = "${DataApi.urlBaseApi}login";
   print(apiUrl);
   String parametros = 'email=$email&password=$password';
   UserActiveApp userActive = UserActiveApp();

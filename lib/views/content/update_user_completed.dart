@@ -1,9 +1,6 @@
-
 import 'package:enne_barbearia/views/content/content_page.dart';
-import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
 import '../../models/userActive.dart';
 import '../admin/home_page_admin.dart';
@@ -31,6 +28,8 @@ void successAlertBox(BuildContext context, String title, String message) {
 
 
 class TelaConfirmacaoUpdate extends StatelessWidget {
+  const TelaConfirmacaoUpdate({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +52,11 @@ class TelaConfirmacaoUpdate extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secundaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 
               ),
               onPressed: () {
@@ -70,7 +69,7 @@ class TelaConfirmacaoUpdate extends StatelessWidget {
                 }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },
-              child: Text('OK', style: TextStyle(
+              child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

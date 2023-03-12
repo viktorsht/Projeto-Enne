@@ -29,21 +29,20 @@ class Agendamento {
 
 class ApiService {
   List<dynamic> _dados = [];
+  //String myIp = DataApi.myIp;
 
   static Future<String> _carregarDados(String idService) async {
-    String myIp = IpApi.myIp;
-    var url = Uri.parse('http://$myIp/phpApi/public_html/api/service/$idService');
+    var url = Uri.parse('${DataApi.urlBaseApi}service/$idService');
     var response = await http.get(url);
     var dados = jsonDecode(response.body);
     return dados['data']['name'];
   }
 
   static Future<List<Agendamento>> getAgendamentos() async {
-    String myIp = IpApi.myIp;
     String id = UserActiveApp.idUser;
     SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
 
-    var url = 'http://$myIp/phpApi/public_html/api/scheduling/$id';
+    var url = '${DataApi.urlBaseApi}scheduling/$id';
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -64,7 +63,7 @@ class ApiService {
             dia: dateFormat.format(DateTime.parse(agendamento['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
               //String myIp = IpApi.myIp;
-              var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idService');
+              var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
               var response = await http.get(url);
               if (response.statusCode == 200) {
                 var dados = jsonDecode(response.body);
@@ -85,7 +84,7 @@ class ApiService {
             dia: dateFormat.format(DateTime.parse(decoded['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
               //String myIp = IpApi.myIp;
-              var url = Uri.parse('http://$myIp/phpApi/public_html/api/price/$idService');
+              var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
               var response = await http.get(url);
               if (response.statusCode == 200) {
                 var dados = jsonDecode(response.body);
@@ -134,8 +133,7 @@ class _MyScheduleState extends State<MySchedule> {
   }
 
   Future<int> submitDeleteSchedule(String idSchedule) async {
-    String myIp = IpApi.myIp;
-    String apiUrl = "http://$myIp/phpApi/public_html/api/deleteScheduling";
+    String apiUrl = "${DataApi.urlBaseApi}deleteScheduling";
     String parametros = 'scheduling_id=$idSchedule';
     try {
       http.Response response = await http.post(

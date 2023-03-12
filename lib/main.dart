@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 /*Importações do app*/
 import 'app.dart';
 void main() {
-  initializeDateFormatting().then((_) => runApp(App()));
+  initializeDateFormatting().then((_) => runApp(const App()));
 }

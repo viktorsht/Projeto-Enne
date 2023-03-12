@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:enne_barbearia/views/content/confirm_schedule.dart';
-import 'package:enne_barbearia/views/content/register_scheduling.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../ip_api.dart';
@@ -25,9 +24,8 @@ class _RegisterHourState extends State<RegisterHour> {
   bool _isLoading = true;
 
 Future<List<String>> getTimeActiveApi() async {
-  String myIp = IpApi.myIp;
   String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
-  final response = await http.get(Uri.parse('http://$myIp/phpApi/public_html/api/timeActive/$day'));
+  final response = await http.get(Uri.parse('${DataApi.urlBaseApi}timeActive/$day'));
   print("Dia da semana $day");
   
   if (response.statusCode == 200) {

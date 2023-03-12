@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 /*Importações do app*/
 import 'views/theme/app_theme.dart';
-import 'views/content/content_page.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

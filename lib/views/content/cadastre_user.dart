@@ -15,9 +15,9 @@ class Register extends StatefulWidget {
 }
 
 Future<int> submitRegisterUserApi(var nome, var snome, var email, var cpf, var password, var level, var addr, var social) async {
-  String myIp = IpApi.myIp;
-  String apiUrl = "http://$myIp/phpApi/public_html/api/registerUser/";
+  String apiUrl = "${DataApi.urlBaseApi}registerUser";
   String parametros = 'name=$nome&surname=$snome&email=$email&cpf=$cpf&password=$password&fk_level=$level&fk_address=$addr&fk_social=$social';
+  int retorno = 0;
   try {
     http.Response response = await http.post(
       Uri.parse(apiUrl),
@@ -26,15 +26,15 @@ Future<int> submitRegisterUserApi(var nome, var snome, var email, var cpf, var p
     );
     if (response.statusCode == 200) {
       print("Cadastro de usuário bem sucedido: ${response.body}");
-      return response.statusCode;
+      retorno = response.statusCode;
     } else {
       print("Cadastro de usuário não sucedido: ${response.statusCode}");
-      return response.statusCode;
+      retorno = response.statusCode;
     }
   } catch (e) {
     print("Erro no Cadastro de usuário: $e");
   }
-  return 0;
+  return retorno;
 }
 
 class _RegisterState extends State<Register> {

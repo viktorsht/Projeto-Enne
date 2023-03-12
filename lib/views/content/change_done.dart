@@ -16,10 +16,9 @@ class _ChangeDoneState extends State<ChangeDone> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: CupertinoAlertDialog(
-        // ignore: prefer_const_constructors
-        title: Text(
+        title: const Text(
           'Alteração concluída!!',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 25, 
             color: AppColors.primaryColor)
           ),
@@ -31,7 +30,7 @@ class _ChangeDoneState extends State<ChangeDone> {
             ),
             child: const Text(
               'Tela inicial',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20, 
                 color: AppColors.primaryColor)
             ),

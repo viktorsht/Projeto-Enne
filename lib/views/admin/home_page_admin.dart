@@ -11,11 +11,11 @@ import '../content/password_change.dart';
 class CrudScreenAdmin extends StatelessWidget {
   CrudScreenAdmin({Key? key}) : super(key: key);
 
-  final ButtonStyle button_crud = ElevatedButton.styleFrom(
-    backgroundColor: Color.fromARGB(255, 240, 41, 41),
-    padding: EdgeInsets.symmetric(vertical: 16.0),
-    minimumSize: Size(double.infinity, 48.0),
-    textStyle: TextStyle(fontSize: 18.0),
+  final ButtonStyle buttonCrud = ElevatedButton.styleFrom(
+    backgroundColor: const Color.fromARGB(255, 240, 41, 41),
+    padding: const EdgeInsets.symmetric(vertical: 16.0),
+    minimumSize: const Size(double.infinity, 48.0),
+    textStyle: const TextStyle(fontSize: 18.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
@@ -24,13 +24,13 @@ class CrudScreenAdmin extends StatelessWidget {
   void closeAppUsingExit() {
     exit(0);
   }
-//SingleChildScrollView
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.secundaryColor,
-        title: Text('Central do Administrador'),
+        title: const Text('Central do Administrador'),
       ),
       body: Container(
           color: Colors.black,
@@ -44,7 +44,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()),);
 
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Cadastrar Usuário *'),
                 ),
                 const SizedBox(height: 16.0),
@@ -53,7 +53,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     // Ação do botão "Listar"
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreenAdmin()),);
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   
                   child: const Text('Perfil do Admistrador *'),
                 ),
@@ -64,7 +64,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     // Ação do botão "Listar" TwoElevatedButtonScreen
                     //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TwoElevatedButtonScreen()),);
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   
                   child: const Text('Listar Agenda'),
                 ),
@@ -73,7 +73,7 @@ class CrudScreenAdmin extends StatelessWidget {
                   onPressed: () {
                     // Ação do botão "Editar"
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Dias de Funcionamento'),
                 ),
                 const SizedBox(height: 16.0),
@@ -81,7 +81,7 @@ class CrudScreenAdmin extends StatelessWidget {
                   onPressed: () {
                     // Ação do botão "Editar"
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Horários de Funfionamento'),
                 ),
                 const SizedBox(height: 16.0),
@@ -89,7 +89,7 @@ class CrudScreenAdmin extends StatelessWidget {
                   onPressed: () {
                     // Ação do botão "Excluir"
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Serviços Disponíveis'),
                 ),
                 const SizedBox(height: 16.0),
@@ -98,18 +98,17 @@ class CrudScreenAdmin extends StatelessWidget {
                     // Ação do botão "Excluir"
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Configurar Senha *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     // Ação do botão "Excluir"
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
                     //closeAppUsingExit();
                   },
-                  style: button_crud,
+                  style: buttonCrud,
                   child: const Text('Logout *'),
                 ),
               ],

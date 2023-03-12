@@ -1,4 +1,3 @@
-//import 'package:enne_barbearia/app.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:enne_barbearia/views/content/register_date.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
@@ -24,9 +23,9 @@ class _RegisterServiceState extends State<RegisterService> {
   List<DropdownMenuItem<dynamic>> _dropdownItens = [];
   dynamic _valorSelecionado;
   SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
+
   Future<void> _carregarDados() async {
-    String myIp = IpApi.myIp;
-    var url = Uri.parse('http://$myIp/phpApi/public_html/api/service');
+    var url = Uri.parse('${DataApi.urlBaseApi}service');
     var response = await http.get(url);
     var dados = jsonDecode(response.body);
     setState(() {

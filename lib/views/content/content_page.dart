@@ -22,17 +22,13 @@ class _ContentPageState extends State<ContentPage>{
 
   List<String> scheduleList = [];
 
-  bool _isLoading = true;
-
   Future<List<String>> getSchedulingUser() async {
-    String myIp = IpApi.myIp;
     String id = UserActiveApp.idUser;
-    String url = 'http://$myIp/phpApi/public_html/api/scheduling/$id';
-    print(id);
+    String url =  '${DataApi.urlBaseApi}scheduling/$id';
+    //print(id);
     final response = await http.get(Uri.parse(url));
     
     if (response.statusCode == 200) {
-      _isLoading = false;
       List<dynamic> responseData = jsonDecode(response.body)['data'];
       List<String> scheduleList = [];
 
@@ -51,13 +47,13 @@ class _ContentPageState extends State<ContentPage>{
     super.initState();
     //getSchedulingUser().then((list) {setState(() {scheduleList = list;});});
     getSchedulingUser();
-    print("Lista de Agendas: $scheduleList");
+    //print("Lista de Agendas: $scheduleList");
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
+    final ButtonStyle themeButtonGeneral = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
       minimumSize: const Size(100, 50),
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20.0),
@@ -90,7 +86,7 @@ class _ContentPageState extends State<ContentPage>{
               SizedBox( width: 150, height: 160, child: Image.asset('assets/logo.png'),),
               const SizedBox(height: 16,),
               ElevatedButton(
-                style: theme_button_general,
+                style: themeButtonGeneral,
                 onPressed: () {
                 //Cadastro concluído com sucesso
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),);

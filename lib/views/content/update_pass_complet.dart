@@ -28,6 +28,8 @@ void successAlertBox(BuildContext context, String title, String message) {
 
 
 class TelaConfirmacaoUpdatePass extends StatelessWidget {
+  const TelaConfirmacaoUpdatePass({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +52,11 @@ class TelaConfirmacaoUpdatePass extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secundaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 
               ),
               onPressed: () {
@@ -62,7 +64,7 @@ class TelaConfirmacaoUpdatePass extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },
-              child: Text('OK', style: TextStyle(
+              child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

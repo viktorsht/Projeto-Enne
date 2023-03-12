@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:http/http.dart' as http;
 import '../ip_api.dart';
 import 'dart:convert';
@@ -16,8 +17,7 @@ class UserActiveApp {
     getUser();
   }
   void getUser() async {
-      String myIp = IpApi.myIp;
-      var url = Uri.parse('http://$myIp/phpApi/public_html/api/user/$idUser');
+      var url = Uri.parse('${DataApi.urlBaseApi}user/$idUser');
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
