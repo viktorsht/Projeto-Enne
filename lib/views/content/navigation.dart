@@ -44,9 +44,8 @@ class _NavigationState extends State<Navigation> {
         padding: EdgeInsets.zero,
           children: [
           UserAccountsDrawerHeader(
-            //backgroundColor: AppColors.primaryColor
             accountName: Text('Olá, $name', style: const TextStyle(fontSize: 22),), 
-            accountEmail: Text('$email', style: const TextStyle(fontSize: 18)),
+            accountEmail: Text(email, style: const TextStyle(fontSize: 16)),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(child: Image.asset('assets/logo.png', fit: BoxFit.cover)),
             ),
@@ -77,7 +76,7 @@ class _NavigationState extends State<Navigation> {
           //const Divider(),
           ListTile(
             leading: const Icon(Icons.password),
-            title: Text('Configurar senha'),
+            title: const Text('Configurar senha'),
             onTap: (() {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
             }),
@@ -92,29 +91,19 @@ class _NavigationState extends State<Navigation> {
           ),
           ListTile(
             leading: const Icon(Icons.help),
-            title: Text('Ajuda'),
+            title: const Text('Ajuda'),
             onTap: (() {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpScreen()),);
             }),
           ),
           ListTile(
             leading: const Icon(Icons.logout_rounded),
-            title: Text('Logout'),
+            title: const Text('Sair'),
             onTap: (() {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()),
               );
             }),
           ),
-          Divider(),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: Text('Sair'),
-            onTap: (() {
-                closeAppUsingExit();
-              }
-            ),
-          ),
-          Divider(),
         ],
       ),
     );

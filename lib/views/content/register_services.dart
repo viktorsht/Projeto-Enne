@@ -32,16 +32,14 @@ class _RegisterServiceState extends State<RegisterService> {
       _dados = dados['data'];
       _dropdownItens = _dados.map((item) => DropdownMenuItem(
         value: item,
-        child: Text(item['name']),
+        child: Text('${item['name']} - R\$ ${item['price']}'),
       )).toList();
     });
-    print(_dados);
   }
 
   @override
   void initState() {
     super.initState();
-    // Inicializa com o get na API
     _carregarDados();  
   }
 
@@ -90,7 +88,7 @@ class _RegisterServiceState extends State<RegisterService> {
                     SchedulingApiAppRequest.namefkService = _valorSelecionado['name'];
                     SchedulingApiAppRequest.durationfkService = _valorSelecionado['duration'];
                     serviceApi.getPrecoServiceApi(SchedulingApiAppRequest.idfkService);
-                    print(SchedulingApiAppRequest.idfkService);
+                    //print(SchedulingApiAppRequest.idfkService);
                     // O valor do valor selecionado é salvo para poder fazer o agendamento
                   });
                   },

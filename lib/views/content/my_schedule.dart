@@ -29,7 +29,6 @@ class Agendamento {
 
 class ApiService {
   List<dynamic> _dados = [];
-  //String myIp = DataApi.myIp;
 
   static Future<String> _carregarDados(String idService) async {
     var url = Uri.parse('${DataApi.urlBaseApi}service/$idService');
@@ -47,7 +46,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var jsonResponse = response.body;
-      if (jsonResponse != null && jsonResponse.isNotEmpty) {
+      if (jsonResponse.isNotEmpty) {
         dynamic decoded = jsonDecode(jsonResponse);
         decoded = decoded['data'];
         final dateFormat = DateFormat('dd/MM/yyyy');
@@ -62,7 +61,6 @@ class ApiService {
             }(agendamento['start']),
             dia: dateFormat.format(DateTime.parse(agendamento['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
-              //String myIp = IpApi.myIp;
               var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
               var response = await http.get(url);
               if (response.statusCode == 200) {
@@ -83,7 +81,6 @@ class ApiService {
             }(decoded['start']),
             dia: dateFormat.format(DateTime.parse(decoded['start'].toString().split(" ")[0])),
             preco: await (String idService) async {
-              //String myIp = IpApi.myIp;
               var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
               var response = await http.get(url);
               if (response.statusCode == 200) {
@@ -167,6 +164,7 @@ class _MyScheduleState extends State<MySchedule> {
       body: appointments.isNotEmpty
         ? ListView.builder(
             itemCount: appointments.length,
+            //scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               final appointment = appointments[index];
               return Card(
@@ -230,7 +228,7 @@ class _MyScheduleState extends State<MySchedule> {
                       int remover = await submitDeleteSchedule(appointment.idAgendamento);
                       if(remover == 200){
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => const DeletedCompleted()),
+                          MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
                         );
                       }
                     },

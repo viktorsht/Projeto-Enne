@@ -1,45 +1,72 @@
-import 'package:enne_barbearia/views/content/my_schedule.dart';
+
+import 'package:enne_barbearia/views/content/content_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DeletedCompleted extends StatefulWidget {
-  const DeletedCompleted({super.key});
-
-  @override
-  State<DeletedCompleted> createState() => _DeletedCompletedState();
+void successAlertBox(BuildContext context, String title, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
-class _DeletedCompletedState extends State<DeletedCompleted> {
+class TelaConfirmacaoDeleteSchedule extends StatelessWidget {
+  const TelaConfirmacaoDeleteSchedule({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      body: CupertinoAlertDialog(
-        // ignore: prefer_const_constructors
-        title: Text(
-          'Agenda excluída com sucesso!!',
-          style: const TextStyle(
-            fontSize: 25, 
-            color: AppColors.primaryColor)
-          ),
-        actions: [
-          TextButton(
-            //onPressed: () => Navigator.pop(context, 'OK'),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => MySchedule()),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/ok.png', // Substitua pelo nome do seu arquivo de GIF
+              height: 200,
+              width: 200,
             ),
-            child: const Text(
-              'Tela inicial',
+            const SizedBox(height: 20),
+            const Text(
+              'Remoção realizada com sucesso!',
               style: TextStyle(
-                fontSize: 20, 
-                color: AppColors.primaryColor)
+                color: AppColors.textColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          //),
-          
-        ],
-        content: Image.asset('assets/ok.png'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secundaryColor,
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                
+              ),
+              onPressed: () {
+                // Ação que será executada ao pressionar o botão
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+              },
+              child: const Text('OK', style: TextStyle(
+                color: AppColors.textColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),),
+            ),
+          ],
+        ),
       ),
     );
   }

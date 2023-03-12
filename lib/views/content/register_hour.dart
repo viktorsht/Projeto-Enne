@@ -116,7 +116,7 @@ Future<List<String>> getTimeActiveApi() async {
                   ),
                 );
               }
-              print('retorno: ' + serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)); // data completa
+              print('retorno: ${serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)}'); // data completa
               
             },
             child: const Text(
