@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 import '../../ip_api.dart';
 import '../../models/service.dart';
 
-
+bool carregandoDados = true;
 
 class Agendamento {
   String nome;
@@ -121,13 +121,16 @@ class ContentPage extends StatefulWidget {
 class _ContentPageState extends State<ContentPage>{
   List<Agendamento> appointments = [];
 
+  String name = "";
+
   @override
   void initState() {
     super.initState();
     _loadAppointments();
-    //getSchedulingUser().then((list) {setState(() {scheduleList = list;});});
-    //getSchedulingUser();
-    //print("Lista de Agendas: $scheduleList");
+    setState(() {
+      carregandoDados = false;
+    });
+    name = UserActiveApp.nameUser;
   }
 
   Future<void> _loadAppointments() async {
@@ -168,6 +171,7 @@ class _ContentPageState extends State<ContentPage>{
   @override
   Widget build(BuildContext context) {
 
+
     final ButtonStyle themeButtonGeneral = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
       minimumSize: const Size(100, 50),
@@ -202,106 +206,123 @@ class _ContentPageState extends State<ContentPage>{
               const SizedBox(height: 30,),
               SizedBox(
                 height: 200,
-                child: appointments.isNotEmpty
-                ? ListView.builder(
-                    itemCount: appointments.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      final appointment = appointments[index];
-                      return Card(
-                        color: AppColors.whiteGrayColor,
-                        child: SizedBox(
-                          width: 300,
-                          child: ListTile(
-                          title: Text('Nome: ${appointment.nome}', 
-                            style: const TextStyle(
+                child: carregandoDados 
+                ? const Center(child: CircularProgressIndicator())
+                : appointments.isEmpty
+                  ? Card(
+                      color: AppColors.whiteGrayColor,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text("$name, você não tem agendamentos!", 
+                          style: const TextStyle(
+                            fontSize: 25, 
                             color: AppColors.primaryColor,
-                            fontSize: 25,
                             fontWeight: FontWeight.bold,
                             ),
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Serviço: ${appointment.servico}', 
-                                  style: const TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                ),
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: appointments.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        final appointment = appointments[index];
+                        return Card(
+                          color: AppColors.whiteGrayColor,
+                          child: SizedBox(
+                            width: 300,
+                            child: ListTile(
+                            title: Text('Nome: ${appointment.nome}', 
+                              style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                'Dia: ${appointment.dia}', 
-                                  style: const TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                'Hora: ${appointment.horario}', 
-                                  style: const TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                'Preço: R\$ ${appointment.preco}', 
-                                  style: const TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 10,),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.secundaryColor,
-                                  minimumSize: const Size(80, 40), 
-                                ),
-                                child: const Text(
-                                  'Excluir',
-                                  style: TextStyle(fontSize: 18),
-                                  ),
-                                onPressed: () async {
-                                  // Implementação da remoção do agendamento
-                                  int remover = await submitDeleteSchedule(appointment.idAgendamento);
-                                  if(remover == 200){
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),/*
-                          trailing: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.secundaryColor,
-                              minimumSize: const Size(80, 40), 
                             ),
-                            child: const Text(
-                              'Excluir',
-                              style: TextStyle(fontSize: 18),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Serviço: ${appointment.servico}', 
+                                    style: const TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  'Dia: ${appointment.dia}', 
+                                    style: const TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  'Hora: ${appointment.horario}', 
+                                    style: const TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  'Preço: R\$ ${appointment.preco}', 
+                                    style: const TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.secundaryColor,
+                                    minimumSize: const Size(80, 40), 
+                                  ),
+                                  child: const Text(
+                                    'Excluir',
+                                    style: TextStyle(fontSize: 18),
+                                    ),
+                                  onPressed: () async {
+                                    // Implementação da remoção do agendamento
+                                    int remover = await submitDeleteSchedule(appointment.idAgendamento);
+                                    if(remover == 200){
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),/*
+                            trailing: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.secundaryColor,
+                                minimumSize: const Size(80, 40), 
                               ),
-                            onPressed: () async {
-                              // Implementação da remoção do agendamento
-                              int remover = await submitDeleteSchedule(appointment.idAgendamento);
-                              if(remover == 200){
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
-                                );
-                              }
-                            },
-                          ),*/
-                        ),
-                        ),
-                      );
-                    },
-                  )
-                : const Center(child: CircularProgressIndicator()),
+                              child: const Text(
+                                'Excluir',
+                                style: TextStyle(fontSize: 18),
+                                ),
+                              onPressed: () async {
+                                // Implementação da remoção do agendamento
+                                int remover = await submitDeleteSchedule(appointment.idAgendamento);
+                                if(remover == 200){
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
+                                  );
+                                }
+                              },
+                            ),*/
+                          ),
+                          ),
+                        );
+                      },
+                    )
+                //: //const Center(child: CircularProgressIndicator()),
                 ),
               //MySchedule(),
               const SizedBox(height: 30,),
