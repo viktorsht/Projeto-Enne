@@ -26,7 +26,6 @@ class _RegisterHourState extends State<RegisterHour> {
 Future<List<String>> getTimeActiveApi() async {
   String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
   final response = await http.get(Uri.parse('${DataApi.urlBaseApi}timeActive/$day'));
-  print("Dia da semana $day");
   
   if (response.statusCode == 200) {
     _isLoading = false;
