@@ -73,6 +73,7 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
       appBar: AppBar(
         title: const Text('Perfil'),
         backgroundColor: AppColors.secundaryColor,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(

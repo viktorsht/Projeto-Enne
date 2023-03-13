@@ -74,173 +74,180 @@ class _RegisterState extends State<Register> {
                 height: 150,
                 child: Image.asset('assets/logo.png'),
               ),
-              // ignore: prefer_const_constructors
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
-                TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: _nomeController,
+              const Center(
+              child: Text(
+                'Cadastro', 
+                style: TextStyle(
+                  fontWeight: FontWeight.bold, 
+                  fontSize: 25, 
+                  color: AppColors.textColor, 
+                  )
+                ),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.name,
+                controller: _nomeController,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Nome",
                   // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: "Nome",
-                    // ignore: prefer_const_constructors
-                    labelStyle: TextStyle(
-                      color: AppColors.backColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null ||value.isEmpty) {
+                    return 'Por favor, digite o seu nome';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.name,
+                controller: _sobrenomeController,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Sobrenome",
+                  // ignore: prefer_const_constructors
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
                     ),
-                  ),
-                  validator: (value) {
-                    if (value == null ||value.isEmpty) {
-                      return 'Por favor, digite o seu nome';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: _sobrenomeController,
+                validator: (value) {
+                  if (value == null ||value.isEmpty) {
+                    return 'Por favor, digite o seu sobrenome';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                controller: _emailController,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  border: const OutlineInputBorder(),
                   // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: "Sobrenome",
-                    // ignore: prefer_const_constructors
-                    labelStyle: TextStyle(
-                      color: AppColors.backColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      ),
-                  ),
-                  validator: (value) {
-                    if (value == null ||value.isEmpty) {
-                      return 'Por favor, digite o seu sobrenome';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    ),
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, digite o seu email';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Por favor, digite um email válido';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _cpfController,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  labelText: "CPF",
+                  border: const OutlineInputBorder(),
                   // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: const OutlineInputBorder(),
-                    // ignore: prefer_const_constructors
-                    labelStyle: TextStyle(
-                      color: AppColors.backColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Por favor, digite o seu email';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Por favor, digite um email válido';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    ),
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _cpfController,
+                validator: (value) {
+                  if (ValidadorCpf.validar(value!) == false){
+                    return 'Por favor, digite um CPF válido';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _senhaController,
+                obscureText: true,
+                // ignore: prefer_const_constructors
+                decoration: InputDecoration(
+                  labelText: "Senha",
+                  border: const OutlineInputBorder(),
                   // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: "CPF",
-                    border: const OutlineInputBorder(),
-                    // ignore: prefer_const_constructors
-                    labelStyle: TextStyle(
-                      color: AppColors.backColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      ),
-                  ),
-                  validator: (value) {
-                    if (ValidadorCpf.validar(value!) == false){
-                      return 'Por favor, digite um CPF válido';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+                  labelStyle: TextStyle(
+                    color: AppColors.backColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    ),
                 ),
-                
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: _senhaController,
-                  obscureText: true,
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: "Senha",
-                    border: const OutlineInputBorder(),
-                    // ignore: prefer_const_constructors
-                    labelStyle: TextStyle(
-                      color: AppColors.backColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Por favor, digite a sua senha';
-                    }
-                    if (value.length < 6) {
-                      return 'A senha deve ter no mínimo 6 caracteres';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-                ),
-                const SizedBox(height: 35,),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                          style: theme_button_general,
-                          onPressed: () {
-                            // Ação que será executada ao pressionar o botão "Voltar"
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Voltar',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.textColor
-                            )
-                          ),
-                        ),
-                      const SizedBox(width: 40),
-                      ElevatedButton(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, digite a sua senha';
+                  }
+                  if (value.length < 6) {
+                    return 'A senha deve ter no mínimo 6 caracteres';
+                  }
+                  return null;
+                },
+                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              ),
+              const SizedBox(height: 35,),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
                         style: theme_button_general,
-                        onPressed: () async{
-                            // Ação que será executada ao pressionar o botão "Cadastro 2"
-                            if(_formKey.currentState!.validate()){
-                            int register = await submitRegisterUserApi(
-                              _nomeController.text, _sobrenomeController.text,_emailController.text,
-                              _cpfController.text, _senhaController.text, level, addr, social);
-                            if(register == 200){
-                            /*Cadastro concluído com sucesso*/
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoCadastro()));
-                            }
-                            else{
-                              print('Código de registro = $register');
-                            }
-                          }
+                        onPressed: () {
+                          // Ação que será executada ao pressionar o botão "Voltar"
+                          Navigator.pop(context);
                         },
-                          child: const Text('Cadastrar',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.textColor
-                            )
-                          ),
+                        child: const Text('Voltar',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: AppColors.textColor
+                          )
                         ),
-                        
-                      ],
-                  ),
+                      ),
+                    const SizedBox(width: 40),
+                    ElevatedButton(
+                      style: theme_button_general,
+                      onPressed: () async{
+                          // Ação que será executada ao pressionar o botão "Cadastro 2"
+                          if(_formKey.currentState!.validate()){
+                          int register = await submitRegisterUserApi(
+                            _nomeController.text, _sobrenomeController.text,_emailController.text,
+                            _cpfController.text, _senhaController.text, level, addr, social);
+                          if(register == 200){
+                          /*Cadastro concluído com sucesso*/
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TelaConfirmacaoCadastro()));
+                          }
+                          else{
+                            print('Código de registro = $register');
+                          }
+                        }
+                      },
+                        child: const Text('Cadastrar',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: AppColors.textColor
+                          )
+                        ),
+                      ), 
+                    ],
+                ),
             ],
           ),
         ),

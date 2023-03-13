@@ -1,6 +1,3 @@
-
-import 'dart:convert';
-
 import 'package:enne_barbearia/models/service.dart';
 import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/content_page.dart';
@@ -11,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../ip_api.dart';
 import '../admin/home_page_admin.dart';
 
+bool _isLoading = true;
 
 void successAlertBox(BuildContext context, String title, String message) {
   showDialog(
@@ -44,7 +42,7 @@ void successAlertBox(BuildContext context, String title, String message) {
     );
     if (response.statusCode == 200) {
       //print("Requisição bem sucedida: ${response.body}");
-      _isLoading = false;
+      //_isLoading = false;
       retorno = response.statusCode;
     } else {
       //print("Requisição não sucedida: ${response.statusCode}");
@@ -63,7 +61,6 @@ class RegisterScheduling extends StatefulWidget {
   State<RegisterScheduling> createState() => _RegisterSchedulingState();
 }
 
-bool _isLoading = true;
 
 class _RegisterSchedulingState extends State<RegisterScheduling> {
    @override
@@ -76,6 +73,9 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
     SchedulingApiAppRequest.dateEnd = endH;
     //print("Data final: $endH");
     submitSchedulingAPI(SchedulingApiAppRequest.dateScheduling, SchedulingApiAppRequest.dateEnd, SchedulingApiAppRequest.idfkService, UserActiveApp.idUser, '2','1');  
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override

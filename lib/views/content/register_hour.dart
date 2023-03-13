@@ -103,6 +103,13 @@ Future<List<String>> getTimeActiveApi() async {
               if(_selectedIndex == -1){
                 //serviceApi.start = DateTime.now().toString().split(" ")[0];
                 // tem que aparecer um alerta aqui!!!
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Insira um horário, por favor!'),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: AppColors.secundaryColor,
+                  ),
+                );
               }
               else{
                 //serviceApi.start = dataIngles;

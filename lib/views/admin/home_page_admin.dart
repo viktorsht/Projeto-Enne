@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:enne_barbearia/views/admin/profile_admin.dart';
+import 'package:enne_barbearia/views/admin/schedule_all.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class CrudScreenAdmin extends StatelessWidget {
   CrudScreenAdmin({Key? key}) : super(key: key);
 
   final ButtonStyle buttonCrud = ElevatedButton.styleFrom(
-    backgroundColor: const Color.fromARGB(255, 240, 41, 41),
+    backgroundColor: AppColors.secundaryColor,
     padding: const EdgeInsets.symmetric(vertical: 16.0),
     minimumSize: const Size(double.infinity, 48.0),
     textStyle: const TextStyle(fontSize: 18.0),
@@ -33,7 +34,7 @@ class CrudScreenAdmin extends StatelessWidget {
         title: const Text('Central do Administrador'),
       ),
       body: Container(
-          color: Colors.black,
+          color: AppColors.primaryColor,
           //child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,12 +62,10 @@ class CrudScreenAdmin extends StatelessWidget {
     
                 ElevatedButton(
                   onPressed: () {
-                    // Ação do botão "Listar" TwoElevatedButtonScreen
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TwoElevatedButtonScreen()),);
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyScheduleAll()),);
                   },
                   style: buttonCrud,
-                  
-                  child: const Text('Listar Agenda'),
+                  child: const Text('Listar Agenda *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -82,7 +81,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     // Ação do botão "Editar"
                   },
                   style: buttonCrud,
-                  child: const Text('Horários de Funfionamento'),
+                  child: const Text('Horários de Funcionamento'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -109,7 +108,7 @@ class CrudScreenAdmin extends StatelessWidget {
                     //closeAppUsingExit();
                   },
                   style: buttonCrud,
-                  child: const Text('Logout *'),
+                  child: const Text('Sair *'),
                 ),
               ],
             ),

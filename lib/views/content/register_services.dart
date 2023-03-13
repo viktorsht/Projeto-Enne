@@ -24,6 +24,8 @@ class _RegisterServiceState extends State<RegisterService> {
   dynamic _valorSelecionado;
   SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
 
+  bool servicoSelecionado = false;
+
   Future<void> _carregarDados() async {
     var url = Uri.parse('${DataApi.urlBaseApi}service');
     var response = await http.get(url);
@@ -88,6 +90,9 @@ class _RegisterServiceState extends State<RegisterService> {
                     SchedulingApiAppRequest.namefkService = _valorSelecionado['name'];
                     SchedulingApiAppRequest.durationfkService = _valorSelecionado['duration'];
                     serviceApi.getPrecoServiceApi(SchedulingApiAppRequest.idfkService);
+                    setState(() {
+                      servicoSelecionado = true;
+                    });
                     //print(SchedulingApiAppRequest.idfkService);
                     // O valor do valor selecionado é salvo para poder fazer o agendamento
                   });
@@ -128,9 +133,18 @@ class _RegisterServiceState extends State<RegisterService> {
             ),
             onPressed: () {
               // CONTINUAR AGENDAMENTO ...
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const RegisterDate()),
-              );
+              if(servicoSelecionado == true){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterDate()),);
+              }
+              else{
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Insira um serviço, por favor!'),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: AppColors.secundaryColor,
+                  ),
+                );
+              }
             },
             child: const Text(
               'Prosseguir',

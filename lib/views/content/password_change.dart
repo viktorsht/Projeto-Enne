@@ -59,6 +59,7 @@ class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.secundaryColor,
         title:const Text('Trocar senha'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
