@@ -22,6 +22,10 @@ class _RegisterDateState extends State<RegisterDate> {
   String dataIngles= DateTime.now().toString().split(" ")[0];
   final dateFormat = DateFormat('dd/MM/yyyy');
   String mensagem = DateFormat('dd/MM/yyyy').format(DateTime.parse(DateTime.now().toString().split(" ")[0]));
+  //String mensagem = "Selecione uma data";
+  String msgTela = "Selecione uma data";
+  //DateTime day ;//= today.weekday;
+  //SchedulingApiAppRequest.numeroDiaSemana = today.weekday;
 
   void _onDaySelect(DateTime day, DateTime focusedDay){
     setState(() {
@@ -33,6 +37,7 @@ class _RegisterDateState extends State<RegisterDate> {
         dataIngles = today.toString().split(" ")[0]; // printa no console a data selecionada.
         mensagem = dateFormat.format(DateTime.parse(dataIngles)); // converte formado da data para portugues
         SchedulingApiAppRequest.dataEmPtBr = mensagem;
+        msgTela = "Data selecionada: $mensagem";
       }
     });
   }
@@ -59,7 +64,7 @@ class _RegisterDateState extends State<RegisterDate> {
       body: Column(
         children: [
           const SizedBox(height: 16,),
-          Text('Data selecionada: $mensagem', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: AppColors.textColor)),
+          Text(msgTela, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: AppColors.textColor)),
           const SizedBox(height: 16,),
           Container(
             color: AppColors.secundaryColor,//Colors.red,
@@ -109,14 +114,25 @@ class _RegisterDateState extends State<RegisterDate> {
                 style: styleButon,
                 onPressed: () {
                   // CONTINUAR AGENDAMENTO ...
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterHour()),);
-                  if(dataIngles == ''){
-                    SchedulingApiAppRequest.dateStart = DateTime.now().toString().split(" ")[0];
+                  if(SchedulingApiAppRequest.numeroDiaSemana == 0){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Insira um horário, por favor!'),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: AppColors.secundaryColor,
+                  ),
+                );
                   }
                   else{
-                    SchedulingApiAppRequest.dateStart = dataIngles;
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterHour()),);
+                    if(dataIngles == ''){
+                      SchedulingApiAppRequest.dateStart = DateTime.now().toString().split(" ")[0];
+                    }
+                    else{
+                      SchedulingApiAppRequest.dateStart = dataIngles;
+                    }
+                    //SchedulingApiAppRequest.numeroDiaSemana = 0;
                   }
-                  print(SchedulingApiAppRequest.dateStart);
                 },
                 child: const Text(
                   'Prosseguir',

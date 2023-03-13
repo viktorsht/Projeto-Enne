@@ -52,8 +52,8 @@ class _RegisterState extends State<Register> {
 
   final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(130, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      minimumSize: const Size(130, 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),

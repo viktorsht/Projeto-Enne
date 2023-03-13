@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:http/http.dart' as http;
 import '../ip_api.dart';
 import 'dart:convert';

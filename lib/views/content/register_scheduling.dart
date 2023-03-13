@@ -71,6 +71,7 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
     String hourEnd = req.somarHoras(SchedulingApiAppRequest.hourStart, SchedulingApiAppRequest.durationfkService);
     String endH = '${SchedulingApiAppRequest.dateStart} $hourEnd';
     SchedulingApiAppRequest.dateEnd = endH;
+    SchedulingApiAppRequest.numeroDiaSemana = 0;
     //print("Data final: $endH");
     submitSchedulingAPI(SchedulingApiAppRequest.dateScheduling, SchedulingApiAppRequest.dateEnd, SchedulingApiAppRequest.idfkService, UserActiveApp.idUser, '2','1');  
     setState(() {

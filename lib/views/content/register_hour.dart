@@ -25,11 +25,13 @@ class _RegisterHourState extends State<RegisterHour> {
 
 Future<List<String>> getTimeActiveApi() async {
   String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
+  print("dia = $day");
   final response = await http.get(Uri.parse('${DataApi.urlBaseApi}timeActive/$day'));
   
   if (response.statusCode == 200) {
     _isLoading = false;
     List<dynamic> responseData = jsonDecode(response.body)['data'];
+    print(responseData);
     List<String> timeList = [];
 
     for (var data in responseData) {
@@ -52,6 +54,7 @@ Future<List<String>> getTimeActiveApi() async {
     getTimeActiveApi().then((list) {
       setState(() {
         timeList = list;
+        //SchedulingApiAppRequest.numeroDiaSemana = 0;
       });
     });
   }

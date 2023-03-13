@@ -158,7 +158,7 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
         /*Cadastro concluído com sucesso*/
           UserActiveApp userActive = UserActiveApp();
           userActive.getUser();
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoUpdate()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TelaConfirmacaoUpdate()));
         }
         else{
           print('Código de registro = $register');
