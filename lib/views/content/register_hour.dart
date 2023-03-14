@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:enne_barbearia/views/content/confirm_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../../ip_api.dart';
+import '../../api.dart';
 import '../../models/service.dart';
 import '../theme/app_colors.dart';
 

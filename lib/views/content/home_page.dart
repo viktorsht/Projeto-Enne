@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../../ip_api.dart';
+import '../../api.dart';
 import '../../models/service.dart';
 
 bool carregandoDados = true;
@@ -111,14 +111,14 @@ class ApiService {
 
 
 
-class ContentPage extends StatefulWidget {
-  const ContentPage({super.key});
+class HomePageUser extends StatefulWidget {
+  const HomePageUser({super.key});
 
   @override
-  State<ContentPage> createState() => _ContentPageState();
+  State<HomePageUser> createState() => _HomePageUserState();
 }
 
-class _ContentPageState extends State<ContentPage>{
+class _HomePageUserState extends State<HomePageUser>{
   List<Agendamento> appointments = [];
 
   String name = "";

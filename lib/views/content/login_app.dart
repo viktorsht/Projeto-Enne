@@ -1,14 +1,13 @@
 import 'dart:convert';
 
 import 'package:enne_barbearia/models/userActive.dart';
-import 'package:enne_barbearia/views/content/my_schedule.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:enne_barbearia/views/content/cadastre_user.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../../ip_api.dart';
+import '../../api.dart';
 import '../../models/contato.dart';
 import '../admin/home_page_admin.dart';
 
@@ -159,15 +158,15 @@ class _LoginAppState extends State<LoginApp> {
                   onPressed: () async{
                     if(_fromKey.currentState!.validate()){
                       int login = await submitLoginApi(_emailController.text,_senhaController.text);
-                      print('login = $login');
+                      //print('login = $login');
                       if(login == 200){
-                        print(UserActiveApp.idUser);
+                        //print(UserActiveApp.idUser);
                         if(UserActiveApp.idUser == '1'){
                           // ignore: use_build_context_synchronously
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                         }
                         else{
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
                         }
                         
                         

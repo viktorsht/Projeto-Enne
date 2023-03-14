@@ -1,5 +1,3 @@
-import 'package:enne_barbearia/models/userActive.dart';
-import 'package:enne_barbearia/views/content/login_app.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../admin/home_page_admin.dart';
@@ -26,8 +24,8 @@ void successAlertBox(BuildContext context, String title, String message) {
 }
 
 
-class TelaConfirmacaoCadastro extends StatelessWidget {
-  const TelaConfirmacaoCadastro({super.key});
+class EditConfirmDay extends StatelessWidget {
+  const EditConfirmDay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Cadastro concluído',
+              'Dias de funcionamento atualizado',
               style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 24,
@@ -60,12 +58,7 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                if(UserActiveApp.idUser == '1'){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
-                }
-                else{
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
-                }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },
               child: const Text('OK', style: TextStyle(

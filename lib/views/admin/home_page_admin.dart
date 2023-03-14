@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:enne_barbearia/views/admin/edit_day_active.dart';
 import 'package:enne_barbearia/views/admin/profile_admin.dart';
 import 'package:enne_barbearia/views/admin/schedule_all.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
@@ -9,8 +10,8 @@ import '../content/cadastre_user.dart';
 import '../content/login_app.dart';
 import '../content/password_change.dart';
 
-class CrudScreenAdmin extends StatelessWidget {
-  CrudScreenAdmin({Key? key}) : super(key: key);
+class HomePageAdmin extends StatelessWidget {
+  HomePageAdmin({Key? key}) : super(key: key);
 
   final ButtonStyle buttonCrud = ElevatedButton.styleFrom(
     backgroundColor: AppColors.secundaryColor,
@@ -22,16 +23,14 @@ class CrudScreenAdmin extends StatelessWidget {
     ),
   );
 
-  void closeAppUsingExit() {
-    exit(0);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.secundaryColor,
         title: const Text('Central do Administrador'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Container(
           color: AppColors.primaryColor,
@@ -70,7 +69,8 @@ class CrudScreenAdmin extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Ação do botão "Editar"
+                    // Ação do botão "Editar"EditDayActive
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => DaysOfWeekScreen()),);
                   },
                   style: buttonCrud,
                   child: const Text('Dias de Funcionamento'),
@@ -105,7 +105,6 @@ class CrudScreenAdmin extends StatelessWidget {
                   onPressed: () {
                     // Ação do botão "Excluir"
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
-                    //closeAppUsingExit();
                   },
                   style: buttonCrud,
                   child: const Text('Sair *'),

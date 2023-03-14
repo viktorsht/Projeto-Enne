@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../ip_api.dart';
+import '../api.dart';
 import 'package:http/http.dart' as http;
 class SchedulingApiAppRequest{
   static String idfkService = '';

@@ -1,11 +1,11 @@
 import 'package:enne_barbearia/models/service.dart';
 import 'package:enne_barbearia/models/userActive.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-import '../../ip_api.dart';
+import '../../api.dart';
 import '../admin/home_page_admin.dart';
 
 bool _isLoading = true;
@@ -113,10 +113,10 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
                 if(UserActiveApp.idUser == '1'){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                 }
                 else{
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
                 }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },

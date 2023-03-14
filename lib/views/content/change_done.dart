@@ -1,5 +1,5 @@
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -26,7 +26,7 @@ class _ChangeDoneState extends State<ChangeDone> {
           TextButton(
             //onPressed: () => Navigator.pop(context, 'OK'),
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const ContentPage()),
+              MaterialPageRoute(builder: (context) => const HomePageUser()),
             ),
             child: const Text(
               'Tela inicial',

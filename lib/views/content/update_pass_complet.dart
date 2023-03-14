@@ -1,5 +1,5 @@
 
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +57,7 @@ class TelaConfirmacaoUpdatePass extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
               },
               child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,

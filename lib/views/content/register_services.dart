@@ -1,11 +1,9 @@
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/content/register_date.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../ip_api.dart';
+import '../../api.dart';
 import '../../models/service.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -114,7 +112,7 @@ class _RegisterServiceState extends State<RegisterService> {
             onPressed: () {
               //BOTÃO VOLTAR ...
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ContentPage()),
+                MaterialPageRoute(builder: (context) => const HomePageUser()),
               );
             },
             child: const Text(

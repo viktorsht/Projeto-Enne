@@ -1,7 +1,10 @@
 
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/models/userActive.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import '../admin/home_page_admin.dart';
 
 void successAlertBox(BuildContext context, String title, String message) {
   showDialog(
@@ -57,7 +60,12 @@ class TelaConfirmacaoDeleteSchedule extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                if(UserActiveApp.idUser == '1'){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
+                }
+                else{
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
+                }
               },
               child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,

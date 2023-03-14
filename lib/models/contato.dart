@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import '../ip_api.dart';
+import '../api.dart';
 import 'dart:convert';
 
 class ContatoApp {

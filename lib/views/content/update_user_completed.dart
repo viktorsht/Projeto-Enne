@@ -1,4 +1,4 @@
-import 'package:enne_barbearia/views/content/content_page.dart';
+import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -62,12 +62,11 @@ class TelaConfirmacaoUpdate extends StatelessWidget {
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
                 if(UserActiveApp.idUser == '1'){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CrudScreenAdmin()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                 }
                 else{
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
                 }
-                //successAlertBox(context, 'Cadastro concluído!', '');
               },
               child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,
