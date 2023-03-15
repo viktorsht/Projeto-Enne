@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:enne_barbearia/views/admin/edit_day_active.dart';
+import 'package:enne_barbearia/views/admin/edit_services.dart';
 import 'package:enne_barbearia/views/admin/profile_admin.dart';
 import 'package:enne_barbearia/views/admin/schedule_all.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
@@ -73,7 +74,7 @@ class HomePageAdmin extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => DaysOfWeekScreen()),);
                   },
                   style: buttonCrud,
-                  child: const Text('Dias de Funcionamento'),
+                  child: const Text('Dias de Funcionamento *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
@@ -86,10 +87,10 @@ class HomePageAdmin extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Ação do botão "Excluir"
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  EditServices()),);
                   },
                   style: buttonCrud,
-                  child: const Text('Serviços Disponíveis'),
+                  child: const Text('Serviços Disponíveis'), // EditServices
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
