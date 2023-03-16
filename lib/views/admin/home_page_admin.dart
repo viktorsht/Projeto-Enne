@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:enne_barbearia/views/admin/dayToday.dart';
 import 'package:enne_barbearia/views/admin/edit_day_active.dart';
 import 'package:enne_barbearia/views/admin/edit_services.dart';
+import 'package:enne_barbearia/views/admin/timeActive.dart';
 import 'package:enne_barbearia/views/admin/profile_admin.dart';
 import 'package:enne_barbearia/views/admin/schedule_all.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
@@ -79,18 +81,20 @@ class HomePageAdmin extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Ação do botão "Editar"
+                    // Ação do botão "Editar"DateSelectionScreen
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  DayToday()),);
+
                   },
                   style: buttonCrud,
-                  child: const Text('Horários de Funcionamento'),
+                  child: const Text('Horários de Funcionamento *'),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  EditServices()),);
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  const EditServices()),);
                   },
                   style: buttonCrud,
-                  child: const Text('Serviços Disponíveis'), // EditServices
+                  child: const Text('Serviços Disponíveis *'), // EditServices
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
