@@ -59,6 +59,7 @@ class _RegisterDateState extends State<RegisterDate> {
         title: const Text("Selecione a data", ),
         backgroundColor: AppColors.secundaryColor,
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: AppColors.primaryColor,
       body: Column(
@@ -124,7 +125,7 @@ class _RegisterDateState extends State<RegisterDate> {
                 );
                   }
                   else{
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterHour()),);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RegisterHour()),);
                     if(dataIngles == ''){
                       SchedulingApiAppRequest.dateStart = DateTime.now().toString().split(" ")[0];
                     }

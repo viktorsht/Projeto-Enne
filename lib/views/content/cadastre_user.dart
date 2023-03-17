@@ -231,7 +231,7 @@ class _RegisterState extends State<Register> {
                             _cpfController.text, _senhaController.text, level, addr, social);
                           if(register == 200){
                           /*Cadastro concluído com sucesso*/
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TelaConfirmacaoCadastro()));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const TelaConfirmacaoCadastro()));
                           }
                           else{
                             print('Código de registro = $register');

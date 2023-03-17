@@ -24,6 +24,7 @@ class AgendamentoCard extends StatelessWidget {
         title: const Text("Confirme os dados"),
         backgroundColor: AppColors.secundaryColor,
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Card(
@@ -64,7 +65,7 @@ class AgendamentoCard extends StatelessWidget {
                   minimumSize: const Size(100, 40), 
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterScheduling()),);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RegisterScheduling()),);
                 },
                 child: const Text(
                   'Confirmar',

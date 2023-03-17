@@ -50,7 +50,7 @@ class _RegisterServiceState extends State<RegisterService> {
         title: const Text("Selecione o serviço"), 
         centerTitle: true,
         backgroundColor: AppColors.secundaryColor,
-        //automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: AppColors.primaryColor,
       body: ListView(
@@ -132,7 +132,7 @@ class _RegisterServiceState extends State<RegisterService> {
             onPressed: () {
               // CONTINUAR AGENDAMENTO ...
               if(servicoSelecionado == true){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterDate()),);
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RegisterDate()),);
               }
               else{
                 ScaffoldMessenger.of(context).showSnackBar(

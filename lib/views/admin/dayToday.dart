@@ -104,7 +104,9 @@ class _DayTodayState extends State<DayToday> {
                   }).toList(),
                   ElevatedButton(
                     onPressed: () async {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TimeActive()));
+                      if(diaSelecionado != ""){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TimeActive()));
+                      }
                     },
                     style: styleButon,
                     child: const Text('Prosseguir', style: TextStyle(fontSize: 20),),

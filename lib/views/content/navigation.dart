@@ -55,7 +55,7 @@ class _NavigationState extends State<Navigation> {
             leading: const Icon(Icons.schedule),
             title: const Text('Agendar'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RegisterService()),
               );
             }),
           ),
@@ -63,14 +63,14 @@ class _NavigationState extends State<Navigation> {
             leading: const Icon(Icons.schedule_send),
             title: const Text('Minha agenda'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MySchedule()),);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MySchedule()),);
             }),
           ),
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Meu perfil'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()),);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ProfileScreen()),);
             }),
           ),
           //const Divider(),
@@ -78,14 +78,14 @@ class _NavigationState extends State<Navigation> {
             leading: const Icon(Icons.password),
             title: const Text('Configurar senha'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const TrocarSenhaScreen()),);
             }),
           ),
           ListTile(
             leading: const Icon(Icons.email),
             title: const Text('Contato'),
             onTap: (() async {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContatoPage()),);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ContatoPage()),);
               
             }),
           ),
@@ -93,14 +93,14 @@ class _NavigationState extends State<Navigation> {
             leading: const Icon(Icons.help),
             title: const Text('Ajuda'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpScreen()),);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HelpScreen()),);
             }),
           ),
           ListTile(
             leading: const Icon(Icons.logout_rounded),
             title: const Text('Sair'),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()),
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginApp()),
               );
             }),
           ),

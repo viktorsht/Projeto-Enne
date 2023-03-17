@@ -77,6 +77,7 @@ Future<List<String>> getTimeActiveApi() async {
         title: const Text("Selecione a hora"),
         backgroundColor: AppColors.secundaryColor,
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -116,7 +117,7 @@ Future<List<String>> getTimeActiveApi() async {
               }
               else{
                 //serviceApi.start = dataIngles;
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => AgendamentoCard(
                     data:SchedulingApiAppRequest.dataEmPtBr, 
                     servico: SchedulingApiAppRequest.namefkService, 
@@ -126,7 +127,7 @@ Future<List<String>> getTimeActiveApi() async {
                   ),
                 );
               }
-              print('retorno: ${serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)}'); // data completa
+              //print('retorno: ${serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)}'); // data completa
               
             },
             child: const Text(

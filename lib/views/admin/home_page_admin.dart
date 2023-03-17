@@ -109,7 +109,8 @@ class HomePageAdmin extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Ação do botão "Excluir"
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
+                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginApp()));
                   },
                   style: buttonCrud,
                   child: const Text('Sair *'),

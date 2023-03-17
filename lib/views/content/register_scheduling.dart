@@ -113,10 +113,10 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
                 if(UserActiveApp.idUser == '1'){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                 }
                 else{
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePageUser()));
                 }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },

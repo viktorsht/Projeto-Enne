@@ -60,6 +60,7 @@ class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
         backgroundColor: AppColors.secundaryColor,
         title:const Text('Trocar senha'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -136,7 +137,7 @@ class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
                     if (_formKey.currentState?.validate() ?? false) {
                       int retorno = await trocarSenhaAPI(UserActiveApp.idUser,_confirmarSenhaController.text);
                       if(retorno == 200){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TelaConfirmacaoUpdatePass()));
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TelaConfirmacaoUpdatePass()));
 
                       }
                     }

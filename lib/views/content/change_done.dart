@@ -25,7 +25,7 @@ class _ChangeDoneState extends State<ChangeDone> {
         actions: [
           TextButton(
             //onPressed: () => Navigator.pop(context, 'OK'),
-            onPressed: () => Navigator.of(context).push(
+            onPressed: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const HomePageUser()),
             ),
             child: const Text(

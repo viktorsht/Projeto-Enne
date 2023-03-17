@@ -78,140 +78,133 @@ class _LoginAppState extends State<LoginApp> {
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Container(
-        child:Form(
-          key: _fromKey,
-          child: ListView(
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              height: 200,
-              child: Image.asset('assets/logo.png'),
+      body: Form(
+        key: _fromKey,
+        child: ListView(
+        children: <Widget>[
+          SizedBox(
+            width: 200,
+            height: 200,
+            child: Image.asset('assets/logo.png'),
+          ),
+          const SizedBox(height: 35,),
+          const Center(
+            child: Text(
+              'Login', 
+              style: TextStyle(
+                fontWeight: FontWeight.bold, 
+                fontSize: 25, 
+                color: AppColors.textColor, 
+              )
             ),
-            const SizedBox(height: 35,),
-            const Center(
-              child: Text(
-                'Login', 
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, 
-                  fontSize: 25, 
-                  color: AppColors.textColor, 
-                )
+          ),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              // ignore: prefer_const_constructors
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: "email",
+                // ignore: prefer_const_constructors
+                labelStyle: TextStyle(
+                  color: AppColors.backColor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  ),
               ),
+              style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              validator: (login){
+                if(login == null || login.isEmpty){
+                  return 'login vazio!';
+                }else{
+                return null;
+                }
+              }
             ),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
+            const SizedBox(
+              height: 35,
+            ),
+            TextFormField(
+              controller: _senhaController,
+              keyboardType: TextInputType.number,
+              obscureText: true,
+              // ignore: prefer_const_constructors
+              decoration: InputDecoration(
+                labelText: "senha",
+                border: const OutlineInputBorder(),
                 // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: "email",
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-                validator: (login){
-                  if(login == null || login.isEmpty){
-                    return 'login vazio!';
-                  }else{
-                  return null;
-                  }
+                labelStyle: TextStyle(
+                  color: AppColors.backColor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  ),
+              ),
+              style: const TextStyle(fontSize: 20, color: AppColors.backColor),
+              validator: (senha){
+                if(senha == null || senha.isEmpty){
+                  return 'senha vazia!';
+                }else{
+                return null;
                 }
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              TextFormField(
-                controller: _senhaController,
-                keyboardType: TextInputType.number,
-                obscureText: true,
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  labelText: "senha",
-                  border: const OutlineInputBorder(),
-                  // ignore: prefer_const_constructors
-                  labelStyle: TextStyle(
-                    color: AppColors.backColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    ),
-                ),
-                style: const TextStyle(fontSize: 20, color: AppColors.backColor),
-                validator: (senha){
-                  if(senha == null || senha.isEmpty){
-                    return 'senha vazia!';
-                  }else{
-                  return null;
-                  }
-                }
-              ),
+              }
+            ),
 
-              const SizedBox( height: 35),
-              
-              Container(
-                child: ElevatedButton(
-                  style: theme_button_general,
-                  onPressed: () async{
-                    if(_fromKey.currentState!.validate()){
-                      int login = await submitLoginApi(_emailController.text,_senhaController.text);
-                      //print('login = $login');
-                      if(login == 200){
-                        //print(UserActiveApp.idUser);
-                        if(UserActiveApp.idUser == '1'){
-                          // ignore: use_build_context_synchronously
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
-                        }
-                        else{
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
-                        }
-                        
-                        
-                      }
-                      else{
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Email ou senha inválida! Por favor, insira dados válidos!'),
-                            duration: Duration(seconds: 4),
-                            backgroundColor: AppColors.secundaryColor,
-                          ),
-                        );
-                      }
+            const SizedBox( height: 35),
+            
+            ElevatedButton(
+              style: theme_button_general,
+              onPressed: () async{
+                if(_fromKey.currentState!.validate()){
+                  int login = await submitLoginApi(_emailController.text,_senhaController.text);
+                  //print('login = $login');
+                  String status = login.toString();
+                  if(login == 200){
+                    //print(UserActiveApp.idUser);
+                    if(UserActiveApp.idUser == '1'){
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                     }
                     else{
-                      //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Email ou senha inválida! Por favor, insira dados válidos!'),
-                        duration: Duration(seconds: 4),
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePageUser()));
+                    }
+                    
+                  }
+                  else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("StatusCode: $status"),//Text('Email ou senha inválida! Por favor, insira dados válidos!'),
+                        duration: const Duration(seconds: 5),
                         backgroundColor: AppColors.secundaryColor,
                       ),
                     );
-                    }
-                  },
-                  child: const Text('Entrar',style: TextStyle(fontSize: 20,color: AppColors.textColor)),
+                  }
+                }
+                else{
+                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContentPage()));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Email ou senha inválida! Por favor, insira dados válidos!'),
+                    duration: Duration(seconds: 4),
+                    backgroundColor: AppColors.secundaryColor,
                   ),
+                );
+                }
+              },
+              child: const Text('Entrar',style: TextStyle(fontSize: 20,color: AppColors.textColor)),
               ),
-              const SizedBox(
-                height: 35,
-              ),
-              Container(
-              child:
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(AppColors.backColor),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()),);
-                },
-                child: const Text('Não tenho conta',),
-              )
+            const SizedBox(
+              height: 35,
             ),
-          ],
-        ),
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(AppColors.backColor),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()),);
+              },
+              child: const Text('Não tenho conta',),
+            ),
+        ],
       ),
       )
     );

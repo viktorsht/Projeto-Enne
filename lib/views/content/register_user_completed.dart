@@ -61,10 +61,10 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
                 if(UserActiveApp.idUser == '1'){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePageAdmin()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                 }
                 else{
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginApp()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginApp()));
                 }
                 //successAlertBox(context, 'Cadastro concluído!', '');
               },

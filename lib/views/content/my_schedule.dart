@@ -166,6 +166,7 @@ class _MyScheduleState extends State<MySchedule> {
         title: const Text('Meus Agendamentos'),
         centerTitle: true,
         backgroundColor: AppColors.secundaryColor,
+        automaticallyImplyLeading: false,
       ),
       body: carregandoDados 
             ? const Center(child: CircularProgressIndicator())
@@ -249,7 +250,7 @@ class _MyScheduleState extends State<MySchedule> {
                             // Implementação da remoção do agendamento
                             int remover = await submitDeleteSchedule(appointment.idAgendamento);
                             if(remover == 200){
-                              Navigator.of(context).push(
+                              Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
                               );
                             }

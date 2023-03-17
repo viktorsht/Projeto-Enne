@@ -188,6 +188,7 @@ class _HomePageUserState extends State<HomePageUser>{
       appBar: AppBar(
         title: const Text('Enne'),
         centerTitle: true,
+        //automaticallyImplyLeading: false,
         backgroundColor: AppColors.secundaryColor,
         actions: [
           IconButton(onPressed: (){
@@ -290,7 +291,7 @@ class _HomePageUserState extends State<HomePageUser>{
                                     // Implementação da remoção do agendamento
                                     int remover = await submitDeleteSchedule(appointment.idAgendamento);
                                     if(remover == 200){
-                                      Navigator.of(context).push(
+                                      Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
                                       );
                                     }
@@ -330,7 +331,7 @@ class _HomePageUserState extends State<HomePageUser>{
                 style: themeButtonGeneral,
                 onPressed: () {
                 //Cadastro concluído com sucesso
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RegisterService()),);
                 },
                 child: const Text(
                   'Agendar agora!',
