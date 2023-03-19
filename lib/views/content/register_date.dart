@@ -28,23 +28,25 @@ class _RegisterDateState extends State<RegisterDate> {
   final dateFormat = DateFormat('dd/MM/yyyy');
   String mensagem = DateFormat('dd/MM/yyyy').format(DateTime.parse(DateTime.now().toString().split(" ")[0]));
   String msgTela = "Selecione uma data";
-  List<String> diaAtivo = [];
+  List<String> dateList = [];
   late Future<List<DiaSemana>> futureDaysOfWeek;
 
 
   void _onDaySelect(DateTime day, DateTime focusedDay){
-    setState(() {
-      if(!isDateInPast(day) &&  day.weekday != DateTime.sunday){ 
-        // só habilita dias que são iguais ou posteriores a data de hoje e elimina os domingos.
-        today = day;
-        SchedulingApiAppRequest.numeroDiaSemana = day.weekday;
-        //print(today.toString().split(" ")[0]);
-        dataIngles = today.toString().split(" ")[0]; // printa no console a data selecionada.
-        mensagem = dateFormat.format(DateTime.parse(dataIngles)); // converte formado da data para portugues
-        SchedulingApiAppRequest.dataEmPtBr = mensagem;
-        msgTela = "Data selecionada: $mensagem";
-      }
-    });
+    if(dateList[day.weekday] == '0'){ // só seleciona dia ativos
+      setState(() {
+        if(!isDateInPast(day) &&  day.weekday != DateTime.sunday){ 
+          // só habilita dias que são iguais ou posteriores a data de hoje e elimina os domingos.
+          today = day;
+          SchedulingApiAppRequest.numeroDiaSemana = day.weekday;
+          //print(today.toString().split(" ")[0]);
+          dataIngles = today.toString().split(" ")[0]; // printa no console a data selecionada.
+          mensagem = dateFormat.format(DateTime.parse(dataIngles)); // converte formado da data para portugues
+          SchedulingApiAppRequest.dataEmPtBr = mensagem;
+          msgTela = "Data selecionada: $mensagem";
+        }
+      });
+    }
   }
 
   bool isDateInPast(DateTime date) {
@@ -56,7 +58,33 @@ class _RegisterDateState extends State<RegisterDate> {
   }
 
   final styleButon = ElevatedButton.styleFrom( backgroundColor: AppColors.secundaryColor,minimumSize: const Size(100, 40),);
- 
+
+  Future<List<String>> getDateActiveApi() async {
+    var url = '${DataApi.urlBaseApi}dayActive';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      List<dynamic> responseData = jsonDecode(response.body)['data'];
+      List<String> dateList = [];
+
+      for (var data in responseData) {
+        dateList.add(data['status']); // pega os status do dia
+      }
+      return dateList;
+    } else {
+      throw Exception('Requisição falida');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDateActiveApi().then((list) {
+      setState(() {
+        dateList = list;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +121,7 @@ class _RegisterDateState extends State<RegisterDate> {
               //selectedTextStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0,color: Colors.black),
               todayTextStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0,color: Colors.white,),
               weekendTextStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0, color: Colors.white),
-              //weekdayTextStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0, color: Colors.blue,
+              disabledTextStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0, color: Colors.blue),
               ),
           daysOfWeekStyle: const DaysOfWeekStyle(
               weekdayStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0, color: Colors.white,),
