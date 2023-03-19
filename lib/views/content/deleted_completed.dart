@@ -1,9 +1,9 @@
 
-import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/userActive.dart';
 import '../admin/home_page_admin.dart';
 
 void successAlertBox(BuildContext context, String title, String message) {

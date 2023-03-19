@@ -94,6 +94,7 @@ class _DaysOfWeekScreenState extends State<DaysOfWeekScreen> {
   @override
   void initState() {
     super.initState();
+
     futureDaysOfWeek = fetchDaysOfWeek();
   }
 

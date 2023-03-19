@@ -111,7 +111,7 @@ class _RegisterServiceState extends State<RegisterService> {
             ),
             onPressed: () {
               //BOTÃO VOLTAR ...
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => const HomePageUser()),
               );
             },

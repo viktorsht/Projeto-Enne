@@ -1,11 +1,11 @@
 import 'package:enne_barbearia/models/service.dart';
-import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 import '../../api.dart';
+import '../../models/userActive.dart';
 import '../admin/home_page_admin.dart';
 
 bool _isLoading = true;
@@ -41,11 +41,11 @@ void successAlertBox(BuildContext context, String title, String message) {
         body: parametros,
       );
       if (response.statusCode == 200) {
-        //print("Requisição bem sucedida: ${response.body}");
+        print("AGENDAMENTO bem sucedida: ${response.body}");
         //_isLoading = false;
         retorno = response.statusCode;
       } else {
-        //print("Requisição não sucedida: ${response.statusCode}");
+        print("AGENDAMENTO não sucedida: ${response.statusCode}");
         retorno = response.statusCode;
       }
     } catch (e) {

@@ -215,7 +215,7 @@ class _HomePageUserState extends State<HomePageUser>{
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Text("$name, você não tem agendamentos!", 
+                          child: Text("${UserActiveApp.nameUser}, você não tem agendamentos!", 
                           style: const TextStyle(
                             fontSize: 25, 
                             color: AppColors.primaryColor,
@@ -298,34 +298,13 @@ class _HomePageUserState extends State<HomePageUser>{
                                   },
                                 ),
                               ],
-                            ),/*
-                            trailing: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.secundaryColor,
-                                minimumSize: const Size(80, 40), 
-                              ),
-                              child: const Text(
-                                'Excluir',
-                                style: TextStyle(fontSize: 18),
-                                ),
-                              onPressed: () async {
-                                // Implementação da remoção do agendamento
-                                int remover = await submitDeleteSchedule(appointment.idAgendamento);
-                                if(remover == 200){
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
-                                  );
-                                }
-                              },
-                            ),*/
+                            ),
                           ),
-                          ),
-                        );
-                      },
-                    )
-                //: //const Center(child: CircularProgressIndicator()),
+                        ),
+                      );
+                    },
+                  )
                 ),
-              //MySchedule(),
               const SizedBox(height: 30,),
               ElevatedButton(
                 style: themeButtonGeneral,

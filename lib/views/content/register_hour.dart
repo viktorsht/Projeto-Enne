@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:enne_barbearia/views/content/confirm_schedule.dart';
+import 'package:enne_barbearia/views/content/register_date.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../api.dart';
 import '../../models/service.dart';
+import '../../models/set_date_hour.dart';
 import '../theme/app_colors.dart';
 
 /*
@@ -23,26 +25,55 @@ class _RegisterHourState extends State<RegisterHour> {
 
   bool _isLoading = true;
 
-Future<List<String>> getTimeActiveApi() async {
-  String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
-  print("dia = $day");
-  final response = await http.get(Uri.parse('${DataApi.urlBaseApi}timeActive/$day'));
-  
-  if (response.statusCode == 200) {
-    _isLoading = false;
-    List<dynamic> responseData = jsonDecode(response.body)['data'];
-    print(responseData);
-    List<String> timeList = [];
+  SetDateHour setDateHour = SetDateHour(); // cuida da validação de datas e horas
 
-    for (var data in responseData) {
-      timeList.add(data['time']);
+  Future<List<String>> getTimeActiveApi() async {
+    String day = SchedulingApiAppRequest.numeroDiaSemana.toString();
+    final response = await http.get(Uri.parse('${DataApi.urlBaseApi}timeActive/$day'));
+    
+    if (response.statusCode == 200) {
+      _isLoading = false;
+      List<dynamic> responseData = jsonDecode(response.body)['data'];
+      List<String> timeList = [];
+
+      for (var data in responseData) {
+        if(setDateHour.isDateToday(SchedulingApiAppRequest.dateStart)){
+          if(setDateHour.isTimeAfterNow(data['time'])){
+            timeList.add(data['time']); // faço a validação dos horarios do dia
+          }
+        }
+        else{
+          timeList.add(data['time']);
+        }
+      }
+      return timeList;
+    } else {
+      throw Exception('Requisição falida');
     }
-
-    return timeList;
-  } else {
-    throw Exception('Requisição falida');
   }
-}
+
+  Future<int> validaSchedule(var start) async {
+    String apiUrl = "${DataApi.urlBaseApi}validaSchedule";
+    String parametros = 'start=$start';
+    try {
+      http.Response response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
+        body: parametros,
+      );
+      Map<String, dynamic> dadosApi = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print("Requisição bem sucedida: ${response.body}");
+        return response.statusCode;
+      } else {
+        print("Requisição não sucedida: ${response.statusCode}");
+        return response.statusCode;
+      }
+    } catch (e) {
+      print("Erro na requisição: $e");
+    }
+    return 0;
+  }
 
 
   List<String> timeList = [];
@@ -99,9 +130,33 @@ Future<List<String>> getTimeActiveApi() async {
               },
             ),
           ),
-          ElevatedButton(
-            style: style_buton,
+          Row(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Padding(padding: EdgeInsets.all(35)),
+            ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.secundaryColor,
+              minimumSize: const Size(125, 40), 
+            ),
             onPressed: () {
+              //BOTÃO VOLTAR ...
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const RegisterDate()),
+              );
+            },
+            child: const Text(
+              'Voltar',
+              style: TextStyle(
+                fontSize: 20,
+                color: AppColors.textColor
+                )
+              ),
+            ),
+            const SizedBox(width: 25,),
+            ElevatedButton(
+            style: style_buton,
+            onPressed: () async {
               // CONTINUAR AGENDAMENTO ...
               
               if(_selectedIndex == -1){
@@ -117,16 +172,29 @@ Future<List<String>> getTimeActiveApi() async {
               }
               else{
                 //serviceApi.start = dataIngles;
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => AgendamentoCard(
-                    data:SchedulingApiAppRequest.dataEmPtBr, 
-                    servico: SchedulingApiAppRequest.namefkService, 
-                    horario: SchedulingApiAppRequest.hourStart, 
-                    preco: SchedulingApiAppRequest.precoService
-                    )
+                int valida = await validaSchedule(serviceApi.contatenaData(SchedulingApiAppRequest.hourStart));
+                if (valida != 200){  
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AgendamentoCard(
+                      data:SchedulingApiAppRequest.dataEmPtBr, 
+                      servico: SchedulingApiAppRequest.namefkService, 
+                      horario: SchedulingApiAppRequest.hourStart, 
+                      preco: SchedulingApiAppRequest.precoService
+                      )
+                    ),
+                  );
+                }
+                else{
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Esse horário está ocupado! tente novamente'),
+                    duration: Duration(seconds: 3),
+                    backgroundColor: AppColors.secundaryColor,
                   ),
                 );
-              }
+                }
+                serviceApi.contatenaData(SchedulingApiAppRequest.hourStart);
+                }
               //print('retorno: ${serviceApi.contatenaData(SchedulingApiAppRequest.hourStart)}'); // data completa
               
             },
@@ -135,6 +203,8 @@ Future<List<String>> getTimeActiveApi() async {
               style: TextStyle(fontSize: 20,color: AppColors.textColor)
             ),
           ),
+          ],
+        )
         ],
       ),
     );

@@ -1,10 +1,10 @@
-import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/update_user_completed.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api.dart';
+import '../../models/userActive.dart';
 
 class ProfileScreenAdmin extends StatefulWidget {
   const ProfileScreenAdmin({super.key});

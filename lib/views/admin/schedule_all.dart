@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import '../../api.dart';
-//import '../../models/service.dart';
 import '../../models/userActive.dart';
 
 bool carregandoDados = true;
@@ -40,8 +39,6 @@ class ApiServiceAll {
   }
 
   static Future<List<AgendamentoAll>> getAgendamentoAlls() async {
-    //String id = UserActiveApp.idUser;
-    //SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
 
     var url = '${DataApi.urlBaseApi}scheduling';
     var response = await http.get(Uri.parse(url));

@@ -1,9 +1,9 @@
-import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/content/update_pass_complet.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../api.dart';
+import '../../models/userActive.dart';
 import '../theme/app_colors.dart';
 
 class TrocarSenhaScreen extends StatefulWidget {

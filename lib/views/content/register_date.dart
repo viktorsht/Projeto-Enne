@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:enne_barbearia/views/content/register_hour.dart';
 import 'package:enne_barbearia/views/content/register_services.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
+import '../../api.dart';
+import '../../models/day_week.dart';
 import '../../models/service.dart';
 
 class RegisterDate extends StatefulWidget {
@@ -22,10 +27,10 @@ class _RegisterDateState extends State<RegisterDate> {
   String dataIngles= DateTime.now().toString().split(" ")[0];
   final dateFormat = DateFormat('dd/MM/yyyy');
   String mensagem = DateFormat('dd/MM/yyyy').format(DateTime.parse(DateTime.now().toString().split(" ")[0]));
-  //String mensagem = "Selecione uma data";
   String msgTela = "Selecione uma data";
-  //DateTime day ;//= today.weekday;
-  //SchedulingApiAppRequest.numeroDiaSemana = today.weekday;
+  List<String> diaAtivo = [];
+  late Future<List<DiaSemana>> futureDaysOfWeek;
+
 
   void _onDaySelect(DateTime day, DateTime focusedDay){
     setState(() {
@@ -51,7 +56,7 @@ class _RegisterDateState extends State<RegisterDate> {
   }
 
   final styleButon = ElevatedButton.styleFrom( backgroundColor: AppColors.secundaryColor,minimumSize: const Size(100, 40),);
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

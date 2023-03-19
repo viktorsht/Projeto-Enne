@@ -45,7 +45,7 @@ class ApiService {
 
     var url = '${DataApi.urlBaseApi}scheduling/$id';
     var response = await http.get(Uri.parse(url));
-
+    print("\n\n\nStatusCode: ${response.statusCode}");
     if (response.statusCode == 200) {
       var jsonResponse = response.body;
       if (jsonResponse.isNotEmpty) {
@@ -116,11 +116,11 @@ class _MyScheduleState extends State<MySchedule> {
   @override
   void initState() {
     super.initState();
+    name = UserActiveApp.nameUser;
     _loadAppointments();
     setState(() {
       carregandoDados = false;
     });
-    name = UserActiveApp.nameUser;
   }
 
   Future<void> _loadAppointments() async {
@@ -131,7 +131,7 @@ class _MyScheduleState extends State<MySchedule> {
       });
     } catch (e) {
       // Se a requisição falhar, você pode exibir uma mensagem de erro
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -166,7 +166,7 @@ class _MyScheduleState extends State<MySchedule> {
         title: const Text('Meus Agendamentos'),
         centerTitle: true,
         backgroundColor: AppColors.secundaryColor,
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: false,
       ),
       body: carregandoDados 
             ? const Center(child: CircularProgressIndicator())
