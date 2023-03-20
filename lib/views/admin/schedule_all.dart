@@ -253,6 +253,7 @@ class _MyScheduleAllState extends State<MyScheduleAll> {
                               backgroundColor: AppColors.secundaryColor,
                             ),
                           );
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyScheduleAll()),);
                         }
                         else{
                           ScaffoldMessenger.of(context).showSnackBar(

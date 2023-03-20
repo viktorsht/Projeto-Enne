@@ -206,7 +206,7 @@ class _HomePageUserState extends State<HomePageUser>{
               SizedBox( width: 150, height: 160, child: Image.asset('assets/logo.png'),),
               const SizedBox(height: 30,),
               SizedBox(
-                height: 200,
+                height: 225,
                 child: carregandoDados 
                 ? const Center(child: CircularProgressIndicator())
                 : appointments.isEmpty
@@ -305,7 +305,7 @@ class _HomePageUserState extends State<HomePageUser>{
                     },
                   )
                 ),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 50,),
               ElevatedButton(
                 style: themeButtonGeneral,
                 onPressed: () {

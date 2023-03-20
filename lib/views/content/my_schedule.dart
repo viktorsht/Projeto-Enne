@@ -250,9 +250,14 @@ class _MyScheduleState extends State<MySchedule> {
                             // Implementação da remoção do agendamento
                             int remover = await submitDeleteSchedule(appointment.idAgendamento);
                             if(remover == 200){
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Agenda excluída com sucesso!"),//Text('Email ou senha inválida! Por favor, insira dados válidos!'),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: AppColors.secundaryColor,
+                                ),
                               );
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MySchedule()),);
                             }
                           },
                         ),
