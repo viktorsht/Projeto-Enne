@@ -26,23 +26,17 @@ class _LoginAppState extends State<LoginApp> {
 
   Future<int> submitLoginApi(var email, var password) async {
   String apiUrl = "${DataApi.urlBaseApi}login";
-  print(apiUrl);
   String parametros = 'email=$email&password=$password';
   UserActiveApp userActive = UserActiveApp();
   ContatoApp contato = ContatoApp();
-  print('Iniciando login na API');
   try {
     http.Response response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
       body: parametros,
     );
-  print('Obtendo informações de login na API');
     Map<String, dynamic> dadosApi = jsonDecode(response.body);
-    //String json = jsonEncode(json_resposta);
-    //Map<String, dynamic> dados = jsonDecode(json_resposta['data']);
     if (response.statusCode == 200) {
-      print("Requisição bem sucedida: ${response.body}");
       userActive.idUserActive(dadosApi['data']['id']);
       contato.getContatoApp();
       return response.statusCode;

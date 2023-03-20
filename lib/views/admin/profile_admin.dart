@@ -45,10 +45,10 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
 
-  final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
+  final ButtonStyle themeButonGeneral = ElevatedButton.styleFrom(
       backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(100, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      minimumSize: const Size(100, 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
@@ -111,21 +111,6 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
                   controller: _cpfController, style: const TextStyle(fontSize: 20,color: AppColors.textColor),) : Text(
                     _cpfController.text, style: const TextStyle(fontSize: 20,color: AppColors.textColor),),
               ),
-              /*
-              ListTile(
-                leading: const Icon(Icons.password, color: AppColors.textColor,),
-                title: const Text('Senha', style: TextStyle(fontSize: 20,color: AppColors.textColor),),
-                subtitle: _editMode ? TextFormField(
-                  obscureText: !_showPassword,
-                  controller: _senhaController, style: const TextStyle(fontSize: 20,color: AppColors.textColor),) 
-                  : const Text('********', style: const TextStyle(fontSize: 20,color: AppColors.textColor),),
-                trailing: IconButton(
-                icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off, color: AppColors.textColor,),
-                onPressed: () {setState(() {_showPassword = !_showPassword;});},
-              ),
-              ),
-              */
-              
               const SizedBox(height: 20),
               _editMode ? _buildSaveButton() : _buildEditButton(),
             ],
@@ -137,7 +122,7 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
 
   Widget _buildEditButton() {
     return ElevatedButton(
-      style: theme_button_general,
+      style: themeButonGeneral,
       child: const Text('Editar perfil', style: TextStyle(fontSize: 20),),
       onPressed: (){
         setState(() {
@@ -149,7 +134,7 @@ class _ProfileScreenAdminState extends State<ProfileScreenAdmin> {
 
   Widget _buildSaveButton() {
     return ElevatedButton(
-      style: theme_button_general,
+      style: themeButonGeneral,
       child: const Text('Salvar', style: TextStyle(fontSize: 20),),
       onPressed: () async{
         // Salvar dados atualizados em um banco de dados ou em um servidor

@@ -43,6 +43,22 @@ dependencies:
   flutter_awesome_alert_box: ^2.1.1
   crypto: ^3.0.2
   url_launcher: ^6.1.10
+  flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.12.0
+
+flutter_native_splash:
+  color: "#ffffff"
+  image_path: "assets/app/logo.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "assets/app/icon.jpeg"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  apaptive_icon_background: "#ffffff"
+  apaptive_icon_foreground: "assets/app/icon.jpeg"
 
 dev_dependencies:
   flutter_test:

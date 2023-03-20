@@ -16,9 +16,6 @@ class SchedulingApiAppRequest{
   static String dateScheduling = '';
   static String precoService = '';
   static String dataEmPtBr = '';
-  //String fkClient = '';
-  //String fkEmployee = '';
-  //String fkCity = '';
 
   String contatenaData(String hora){
     dateScheduling =  '$dateStart $hora';

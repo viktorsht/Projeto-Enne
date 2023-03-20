@@ -21,7 +21,6 @@ class UserActiveApp {
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        print('Dados do usuário: ${jsonResponse['data']}');
         nameUser = jsonResponse['data']['name'];
         sobrenameUser = jsonResponse['data']['surname'];
         emailUser = jsonResponse['data']['email'];

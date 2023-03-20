@@ -260,7 +260,6 @@ class _MyScheduleState extends State<MySchedule> {
                     );
                   },
                 )
-        //: Center(child: CircularProgressIndicator()),
     );
   }
 }

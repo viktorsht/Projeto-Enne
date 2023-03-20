@@ -9,11 +9,6 @@ import '../../models/service.dart';
 import '../../models/set_date_hour.dart';
 import '../theme/app_colors.dart';
 
-/*
-faça um Get numa api e salve os dados de ['data']['time'] em uma lista de string para ser usada em uma ListView no Flutter
-incremente o que foi feito anteriormente com um checkBox onde o usuário só pode selecionar um único item da listView
- */
-
 class RegisterHour extends StatefulWidget {
   @override
   _RegisterHourState createState() => _RegisterHourState();
