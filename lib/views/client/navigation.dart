@@ -1,10 +1,9 @@
-import 'dart:io';
-import 'package:enne_barbearia/views/content/my_schedule.dart';
-import 'package:enne_barbearia/views/content/help_screen.dart';
-import 'package:enne_barbearia/views/content/login_app.dart';
-import 'package:enne_barbearia/views/content/password_change.dart';
-import 'package:enne_barbearia/views/content/profile_screen.dart';
-import 'package:enne_barbearia/views/content/register_services.dart';
+import 'package:enne_barbearia/views/client/my_schedule.dart';
+import 'package:enne_barbearia/views/client/help_screen.dart';
+import 'package:enne_barbearia/views/client/login_app.dart';
+import 'package:enne_barbearia/views/client/password_change.dart';
+import 'package:enne_barbearia/views/client/profile_screen.dart';
+import 'package:enne_barbearia/views/client/register_services.dart';
 import 'package:flutter/material.dart';
 import '../../models/userActive.dart';
 import '../theme/app_colors.dart';
@@ -23,14 +22,9 @@ class _NavigationState extends State<Navigation> {
   String name = "";
   String email = "";
 
-  void closeAppUsingExit() {
-    exit(0);
-  }
-
   @override
   void initState() {
     super.initState();
-    // Inicializa os controladores de texto com dados de exemplo
     id = UserActiveApp.idUser;
     name = UserActiveApp.nameUser;
     email = UserActiveApp.emailUser;
@@ -73,7 +67,6 @@ class _NavigationState extends State<Navigation> {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()),);
             }),
           ),
-          //const Divider(),
           ListTile(
             leading: const Icon(Icons.password),
             title: const Text('Configurar senha'),

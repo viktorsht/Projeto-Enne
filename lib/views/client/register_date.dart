@@ -1,14 +1,11 @@
-import 'dart:convert';
-
-import 'package:enne_barbearia/views/content/register_hour.dart';
-import 'package:enne_barbearia/views/content/register_services.dart';
+import 'package:enne_barbearia/views/client/register_hour.dart';
+import 'package:enne_barbearia/views/client/register_services.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-
-import '../../api.dart';
+import '../../controllers/control_register_date.dart';
 import '../../models/day_week.dart';
 import '../../models/service.dart';
 
@@ -30,7 +27,7 @@ class _RegisterDateState extends State<RegisterDate> {
   String msgTela = "Selecione uma data";
   List<String> dateList = [];
   late Future<List<DiaSemana>> futureDaysOfWeek;
-
+  RegisterDateController registerDateController = RegisterDateController();
 
   void _onDaySelect(DateTime day, DateTime focusedDay){
     if(dateList[day.weekday] == '0'){ // só seleciona dia ativos
@@ -39,7 +36,6 @@ class _RegisterDateState extends State<RegisterDate> {
           // só habilita dias que são iguais ou posteriores a data de hoje e elimina os domingos.
           today = day;
           SchedulingApiAppRequest.numeroDiaSemana = day.weekday;
-          //print(today.toString().split(" ")[0]);
           dataIngles = today.toString().split(" ")[0]; // printa no console a data selecionada.
           mensagem = dateFormat.format(DateTime.parse(dataIngles)); // converte formado da data para portugues
           SchedulingApiAppRequest.dataEmPtBr = mensagem;
@@ -50,35 +46,15 @@ class _RegisterDateState extends State<RegisterDate> {
   }
 
   bool isDateInPast(DateTime date) {
-  
     //a função retorna verdadeiro (true) se a data passada como parâmetro ocorreu até o dia de ontem, e falso (false) caso contrário.
-
     final now = DateTime.now();
     return date.isBefore(DateTime(now.year, now.month, now.day - 1));
-  }
-
-  final styleButon = ElevatedButton.styleFrom( backgroundColor: AppColors.secundaryColor,minimumSize: const Size(100, 40),);
-
-  Future<List<String>> getDateActiveApi() async {
-    var url = '${DataApi.urlBaseApi}dayActive';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      List<dynamic> responseData = jsonDecode(response.body)['data'];
-      List<String> dateList = [];
-
-      for (var data in responseData) {
-        dateList.add(data['status']); // pega os status do dia
-      }
-      return dateList;
-    } else {
-      throw Exception('Requisição falida');
-    }
   }
 
   @override
   void initState() {
     super.initState();
-    getDateActiveApi().then((list) {
+    registerDateController.getDateActiveApi().then((list) {
       setState(() {
         dateList = list;
       });
@@ -133,7 +109,7 @@ class _RegisterDateState extends State<RegisterDate> {
             children: [
               const Padding(padding: EdgeInsets.all(35)),
               ElevatedButton(
-                style: styleButon,
+                style: ButtonApp.themeButtonSmall,
                 onPressed: () {
                   // CONTINUAR AGENDAMENTO ...
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterService()),);
@@ -145,7 +121,7 @@ class _RegisterDateState extends State<RegisterDate> {
                 ),
               const SizedBox(width: 25,),
               ElevatedButton(
-                style: styleButon,
+                style: ButtonApp.themeButtonSmall,
                 onPressed: () {
                   // CONTINUAR AGENDAMENTO ...
                   if(SchedulingApiAppRequest.numeroDiaSemana == 0){
@@ -165,7 +141,6 @@ class _RegisterDateState extends State<RegisterDate> {
                     else{
                       SchedulingApiAppRequest.dateStart = dataIngles;
                     }
-                    //SchedulingApiAppRequest.numeroDiaSemana = 0;
                   }
                 },
                 child: const Text(

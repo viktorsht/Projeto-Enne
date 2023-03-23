@@ -1,38 +1,14 @@
-import 'package:enne_barbearia/views/content/login_app.dart';
+import 'package:enne_barbearia/views/client/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../../models/userActive.dart';
-import '../admin/home_page_admin.dart';
 
-
-void successAlertBox(BuildContext context, String title, String message) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-
-class TelaConfirmacaoCadastro extends StatelessWidget {
-  const TelaConfirmacaoCadastro({super.key});
+class TelaConfirmacaoUpdatePass extends StatelessWidget {
+  const TelaConfirmacaoUpdatePass({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +20,7 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Cadastro concluído',
+              'Atualização de senha concluída',
               style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 24,
@@ -60,13 +36,7 @@ class TelaConfirmacaoCadastro extends StatelessWidget {
               ),
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
-                if(UserActiveApp.idUser == '1'){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePageAdmin()));
-                }
-                else{
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginApp()));
-                }
-                //successAlertBox(context, 'Cadastro concluído!', '');
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePageUser()));
               },
               child: const Text('OK', style: TextStyle(
                 color: AppColors.textColor,

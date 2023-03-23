@@ -1,11 +1,14 @@
-import 'package:enne_barbearia/views/content/home_page.dart';
-import 'package:enne_barbearia/views/content/register_date.dart';
+import 'package:enne_barbearia/views/client/home_page.dart';
+import 'package:enne_barbearia/views/client/register_date.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../../api.dart';
+import '../../controllers/control_register_service.dart';
 import '../../models/service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../theme/app_button.dart';
 
 class RegisterService extends StatefulWidget {
   const RegisterService({super.key});
@@ -17,14 +20,15 @@ class RegisterService extends StatefulWidget {
 class _RegisterServiceState extends State<RegisterService> {
 
   final dropValue = ValueNotifier('');
-  List<dynamic> _dados = [];
-  List<DropdownMenuItem<dynamic>> _dropdownItens = [];
   dynamic _valorSelecionado;
   SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
-
+  RegisterServiceController registerServiceController = RegisterServiceController();
   bool servicoSelecionado = false;
+  List<DropdownMenuItem<dynamic>> _dropdownItens = [];
 
-  Future<void> _carregarDados() async {
+  List<dynamic> _dados = [];
+  
+  Future<void> carregarServices() async {
     var url = Uri.parse('${DataApi.urlBaseApi}service');
     var response = await http.get(url);
     var dados = jsonDecode(response.body);
@@ -40,7 +44,7 @@ class _RegisterServiceState extends State<RegisterService> {
   @override
   void initState() {
     super.initState();
-    _carregarDados();  
+    carregarServices();  
   }
 
   @override
@@ -91,8 +95,6 @@ class _RegisterServiceState extends State<RegisterService> {
                     setState(() {
                       servicoSelecionado = true;
                     });
-                    //print(SchedulingApiAppRequest.idfkService);
-                    // O valor do valor selecionado é salvo para poder fazer o agendamento
                   });
                   },
                 ),
@@ -101,14 +103,10 @@ class _RegisterServiceState extends State<RegisterService> {
           ),
         ),
         Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Padding(padding: EdgeInsets.all(35)),
             ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secundaryColor,
-              minimumSize: const Size(125, 40), 
-            ),
+            style: ButtonApp.themeButtonSmall,
             onPressed: () {
               //BOTÃO VOLTAR ...
               Navigator.of(context).pushReplacement(
@@ -125,10 +123,7 @@ class _RegisterServiceState extends State<RegisterService> {
             ),
             const SizedBox(width: 25,),
             ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secundaryColor,
-              minimumSize: const Size(100, 40), 
-            ),
+            style: ButtonApp.themeButtonSmall,
             onPressed: () {
               // CONTINUAR AGENDAMENTO ...
               if(servicoSelecionado == true){

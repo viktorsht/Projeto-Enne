@@ -1,9 +1,8 @@
-import 'package:enne_barbearia/views/content/update_user_completed.dart';
+import 'package:enne_barbearia/views/client/validations/update_user_completed.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import '../../api.dart';
+import '../../controllers/control_profile_screen.dart';
 import '../../models/userActive.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -11,29 +10,6 @@ class ProfileScreen extends StatefulWidget {
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-
-Future<int> submitUpdateUserApi(var id, var nome, var snome, var email, var cpf, var password, var level, var addr, var social) async {
-  String apiUrl = "${DataApi.urlBaseApi}updateUser/";
-  String parametros = 'id=$id&name=$nome&surname=$snome&email=$email&cpf=$cpf&password=$password&fk_level=$level&fk_address=$addr&fk_social=$social';
-  try {
-    http.Response response = await http.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
-      body: parametros,
-    );
-    if (response.statusCode == 200) {
-      print("Cadastro de usuário bem sucedido: ${response.body}");
-      return response.statusCode;
-    } else {
-      print("Cadastro de usuário não sucedido: ${response.statusCode}");
-      return response.statusCode;
-    }
-  } catch (e) {
-    print("Erro no Cadastro de usuário: $e");
-  }
-  return 0;
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -45,15 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
 
-  final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(100, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-  );
-
+  ProfileScreenController profileScreenController = ProfileScreenController();
   @override
   void initState() {
     super.initState();
@@ -122,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildEditButton() {
     return ElevatedButton(
-      style: theme_button_general,
+      style: ButtonApp.themeButtonAppPrimary,
       child: const Text('Editar perfil', style: TextStyle(fontSize: 20),),
       onPressed: (){
         setState(() {
@@ -134,11 +102,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildSaveButton() {
     return ElevatedButton(
-      style: theme_button_general,
+      style: ButtonApp.themeButtonAppPrimary,
       child: const Text('Salvar', style: TextStyle(fontSize: 20),),
       onPressed: () async{
         // Salvar dados atualizados em um banco de dados ou em um servidor
-        int register = await submitUpdateUserApi(idUser,_nameController.text, _sobrenomeController.text, _emailController.text, _cpfController.text, _senhaController.text, 3,1,1);
+        int register = await profileScreenController.submitUpdateUserApi(idUser,_nameController.text, _sobrenomeController.text, _emailController.text, _cpfController.text, _senhaController.text, 3,1,1);
         if(register == 200){
         /*Cadastro concluído com sucesso*/
           UserActiveApp userActive = UserActiveApp();

@@ -1,7 +1,8 @@
 import 'package:enne_barbearia/models/userActive.dart';
 import 'package:enne_barbearia/views/admin/home_page_admin.dart';
-import 'package:enne_barbearia/views/content/home_page.dart';
-import 'package:enne_barbearia/views/content/register_scheduling.dart';
+import 'package:enne_barbearia/views/client/home_page.dart';
+import 'package:enne_barbearia/views/client/register_scheduling.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -84,10 +85,7 @@ class AgendamentoCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 20,),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.secundaryColor,
-                        minimumSize: const Size(100, 40), 
-                      ),
+                      style: ButtonApp.themeButtonViewUpdate,
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterScheduling()),);
                       },

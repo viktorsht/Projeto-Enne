@@ -1,5 +1,5 @@
 /*Importações do flutter*/
-import 'package:enne_barbearia/views/content/login_app.dart';
+import 'package:enne_barbearia/views/client/login_app.dart';
 import 'package:flutter/material.dart';
 
 /*Importações do app*/

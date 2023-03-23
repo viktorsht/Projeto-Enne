@@ -1,115 +1,15 @@
-import 'dart:convert';
-
+import 'package:enne_barbearia/models/schedule_client.dart';
 import 'package:enne_barbearia/models/userActive.dart';
-import 'package:enne_barbearia/views/content/deleted_completed.dart';
-import 'package:enne_barbearia/views/content/my_schedule.dart';
-import 'package:enne_barbearia/views/content/navigation.dart';
-import 'package:enne_barbearia/views/content/register_services.dart';
-import 'package:enne_barbearia/views/content/profile_screen.dart';
+import 'package:enne_barbearia/views/client/validations/deleted_completed.dart';
+import 'package:enne_barbearia/views/client/navigation.dart';
+import 'package:enne_barbearia/views/client/register_services.dart';
+import 'package:enne_barbearia/views/client/profile_screen.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-
-import '../../api.dart';
-import '../../models/service.dart';
+import '../../controllers/control_chedule_user.dart';
 
 bool carregandoDados = true;
-
-class Agendamento {
-  String nome;
-  String servico;
-  String horario;
-  String dia;
-  String preco;
-  String idAgendamento;
-
-  Agendamento({
-    required this.nome, 
-    required this.servico, 
-    required this.dia, 
-    required this.horario, 
-    required this.preco,
-    required this.idAgendamento
-    });
-}
-
-class ApiService {
-  List<dynamic> _dados = [];
-
-  static Future<String> _carregarDados(String idService) async {
-    var url = Uri.parse('${DataApi.urlBaseApi}service/$idService');
-    var response = await http.get(url);
-    var dados = jsonDecode(response.body);
-    return dados['data']['name'];
-  }
-
-  static Future<List<Agendamento>> getAgendamentos() async {
-    String id = UserActiveApp.idUser;
-    SchedulingApiAppRequest serviceApi = SchedulingApiAppRequest();
-
-    var url = '${DataApi.urlBaseApi}scheduling/$id';
-    var response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      var jsonResponse = response.body;
-      if (jsonResponse.isNotEmpty) {
-        dynamic decoded = jsonDecode(jsonResponse);
-        decoded = decoded['data'];
-        final dateFormat = DateFormat('dd/MM/yyyy');
-        if (decoded is List) {
-          return Future.wait(decoded.map((agendamento) async => Agendamento(
-            nome: agendamento['name'],
-            servico: await _carregarDados(agendamento['fk_service'].toString()),
-            horario: (String dataHora) {
-              List<String> partes = dataHora.split(' ');
-              String hora = partes[1];
-              return hora;
-            }(agendamento['start']),
-            dia: dateFormat.format(DateTime.parse(agendamento['start'].toString().split(" ")[0])),
-            preco: await (String idService) async {
-              var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
-              var response = await http.get(url);
-              if (response.statusCode == 200) {
-                var dados = jsonDecode(response.body);
-                return dados['data']['price'];
-            }
-          }(agendamento['fk_service'].toString()),
-          idAgendamento: agendamento['scheduling_id'],
-          )).toList());
-        } else if (decoded is Map<String, dynamic>) {
-          return [Agendamento(
-            nome: decoded['name'],
-            servico: await _carregarDados(decoded['fk_service'].toString()),
-            horario: (String dataHora) {
-              List<String> partes = dataHora.split(' ');
-              String hora = partes[1];
-              return hora;
-            }(decoded['start']),
-            dia: dateFormat.format(DateTime.parse(decoded['start'].toString().split(" ")[0])),
-            preco: await (String idService) async {
-              var url = Uri.parse('${DataApi.urlBaseApi}price/$idService');
-              var response = await http.get(url);
-              if (response.statusCode == 200) {
-                var dados = jsonDecode(response.body);
-                return dados['data']['price'];
-            }
-          }(decoded['fk_service'].toString()),
-          idAgendamento: decoded['scheduling_id'],
-          )];
-        } else {
-          throw Exception('Resposta inválida da API');
-        }
-      } else {
-        throw Exception('Corpo da resposta é nulo ou vazio');
-      }
-    } else {
-      throw Exception('Falha ao carregar agendamentos');
-    }
-  }
-}
-
-
 
 class HomePageUser extends StatefulWidget {
   const HomePageUser({super.key});
@@ -119,70 +19,36 @@ class HomePageUser extends StatefulWidget {
 }
 
 class _HomePageUserState extends State<HomePageUser>{
-  List<Agendamento> appointments = [];
-
+  List<AgendamentosCliente> appointments = [];
+  CheduleUserController cheduleUserController = CheduleUserController();
   String name = "";
 
   @override
   void initState() {
     super.initState();
-    _loadAppointments();
+    _carregaAgendamentos();
     setState(() {
       carregandoDados = false;
     });
     name = UserActiveApp.nameUser;
   }
 
-  Future<void> _loadAppointments() async {
+  Future<void> _carregaAgendamentos() async {
     try {
-      final appointments = await ApiService.getAgendamentos();
+      final appointments = await CheduleUserController.getAgendamentos();
       setState(() {
-        this.appointments = appointments.reversed.toList();
+        this.appointments = appointments.toList();
       });
     } catch (e) {
       // Se a requisição falhar, você pode exibir uma mensagem de erro
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
-  }
-
-  Future<int> submitDeleteSchedule(String idSchedule) async {
-    String apiUrl = "${DataApi.urlBaseApi}deleteScheduling";
-    String parametros = 'scheduling_id=$idSchedule';
-    try {
-      http.Response response = await http.post(
-        Uri.parse(apiUrl),
-        headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
-        body: parametros,
-      );
-      Map<String, dynamic> dadosApi = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        print("Requisição bem sucedida: ${response.body}");
-        return response.statusCode;
-      } else {
-        print("Requisição não sucedida: ${response.statusCode}");
-        return response.statusCode;
-      }
-    } catch (e) {
-      print("Erro na requisição: $e");
-    }
-    return 0;
   }
 
   @override
   Widget build(BuildContext context) {
 
-
-    final ButtonStyle themeButtonGeneral = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secundaryColor,
-      minimumSize: const Size(100, 50),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20.0),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-  );
-
     return Scaffold(
-      //bakccolor: AppColors.primaryColor,
       backgroundColor: AppColors.primaryColor,
       drawer: const Navigation(),
       appBar: AppBar(
@@ -289,7 +155,7 @@ class _HomePageUserState extends State<HomePageUser>{
                                     ),
                                   onPressed: () async {
                                     // Implementação da remoção do agendamento
-                                    int remover = await submitDeleteSchedule(appointment.idAgendamento);
+                                    int remover = await cheduleUserController.submitDeleteSchedule(appointment.idAgendamento);
                                     if(remover == 200){
                                       Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(builder: (context) => const TelaConfirmacaoDeleteSchedule()),
@@ -307,7 +173,7 @@ class _HomePageUserState extends State<HomePageUser>{
                 ),
               const SizedBox(height: 50,),
               ElevatedButton(
-                style: themeButtonGeneral,
+                style: ButtonApp.themeButtonAppSecundary,
                 onPressed: () {
                 //Cadastro concluído com sucesso
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RegisterService()),);

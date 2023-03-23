@@ -1,8 +1,7 @@
-import 'package:enne_barbearia/views/content/update_pass_complet.dart';
+import 'package:enne_barbearia/controllers/control_password_change.dart';
+import 'package:enne_barbearia/views/client/validations/update_pass_complet.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import '../../api.dart';
 import '../../models/userActive.dart';
 import '../theme/app_colors.dart';
 
@@ -14,43 +13,13 @@ class TrocarSenhaScreen extends StatefulWidget {
 }
 
 class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
+  PasswordChangeController passwordChangeController = PasswordChangeController();
   final _formKey = GlobalKey<FormState>();
   final _senhaAtualController = TextEditingController();
   final _novaSenhaController = TextEditingController();
   final _confirmarSenhaController = TextEditingController();
 
-  final ButtonStyle themeButtonGeneral = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(130, 50),
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-  );
-
   String? _errorMessage;
-
-  Future<int> trocarSenhaAPI(var id, var password) async {
-  String apiUrl = "${DataApi.urlBaseApi}password";
-  String parametros = 'id=$id&password=$password';
-  try {
-    http.Response response = await http.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
-      body: parametros,
-    );
-    if (response.statusCode == 200) {
-      print("Atualização de senha bem sucedida: ${response.body}");
-      return response.statusCode;
-    } else {
-      print("Atualização de senha não sucedida: ${response.statusCode}");
-      return response.statusCode;
-    }
-  } catch (e) {
-    print("Erro na atualização de senha: $e");
-  }
-  return 0;
-}
 
   @override
   Widget build(BuildContext context) {
@@ -131,12 +100,12 @@ class _TrocarSenhaScreenState extends State<TrocarSenhaScreen> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  style: themeButtonGeneral,
+                  style: ButtonApp.themeButtonAppPrimary,
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      int retorno = await trocarSenhaAPI(UserActiveApp.idUser,_confirmarSenhaController.text);
+                      int retorno = await passwordChangeController.trocarSenhaAPI(UserActiveApp.idUser,_confirmarSenhaController.text);
                       if(retorno == 200){
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TelaConfirmacaoUpdatePass()));
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const TelaConfirmacaoUpdatePass()));
 
                       }
                     }

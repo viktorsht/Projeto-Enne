@@ -1,17 +1,11 @@
-import 'dart:convert';
+import 'package:enne_barbearia/controllers/control_login.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/content/cadastre_user.dart';
-import 'package:enne_barbearia/views/content/home_page.dart';
+import 'package:enne_barbearia/views/client/register_user.dart';
+import 'package:enne_barbearia/views/client/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import '../../api.dart';
-import '../../models/contato.dart';
 import '../../models/userActive.dart';
 import '../admin/home_page_admin.dart';
-
-
-//import 'content/app_button.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({super.key});
@@ -20,55 +14,16 @@ class LoginApp extends StatefulWidget {
   State<LoginApp> createState() => _LoginAppState();
 }
 
-
-
 class _LoginAppState extends State<LoginApp> {
 
-  Future<int> submitLoginApi(var email, var password) async {
-  String apiUrl = "${DataApi.urlBaseApi}login";
-  String parametros = 'email=$email&password=$password';
-  UserActiveApp userActive = UserActiveApp();
-  ContatoApp contato = ContatoApp();
-  try {
-    http.Response response = await http.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded',},
-      body: parametros,
-    );
-    Map<String, dynamic> dadosApi = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      userActive.idUserActive(dadosApi['data']['id']);
-      contato.getContatoApp();
-      return response.statusCode;
-    } else {
-      print("Requisição não sucedida: ${response.statusCode}");
-      return response.statusCode;
-    }
-  } catch (e) {
-    print("Erro na requisição: $e");
-  }
-  return 0;
-}
+  LoginAppController loginAppController = LoginAppController();
 
   final _fromKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
-  int time = 4;
-
-  final ButtonStyle theme_button_general = ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secundaryColor,
-      minimumSize: Size(130, 50),
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-  );
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
-
-
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Form(
@@ -114,9 +69,7 @@ class _LoginAppState extends State<LoginApp> {
                 }
               }
             ),
-            const SizedBox(
-              height: 35,
-            ),
+            const SizedBox(height: 35,),
             TextFormField(
               controller: _senhaController,
               keyboardType: TextInputType.number,
@@ -141,20 +94,15 @@ class _LoginAppState extends State<LoginApp> {
                 }
               }
             ),
-
             const SizedBox( height: 35),
-            
             ElevatedButton(
-              style: theme_button_general,
+              style: ButtonApp.themeButtonAppPrimary,
               onPressed: () async{
                 if(_fromKey.currentState!.validate()){
-                  int login = await submitLoginApi(_emailController.text,_senhaController.text);
-                  //print('login = $login');
+                  int login = await loginAppController.submitLoginApi(_emailController.text,_senhaController.text);
                   String status = login.toString();
                   if(login == 200){
-                    //print(UserActiveApp.idUser);
                     if(UserActiveApp.idUser == '1'){
-                      // ignore: use_build_context_synchronously
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePageAdmin()));
                     }
                     else{
@@ -185,9 +133,7 @@ class _LoginAppState extends State<LoginApp> {
               },
               child: const Text('Entrar',style: TextStyle(fontSize: 20,color: AppColors.textColor)),
               ),
-            const SizedBox(
-              height: 35,
-            ),
+            const SizedBox(height: 35,),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(AppColors.backColor),

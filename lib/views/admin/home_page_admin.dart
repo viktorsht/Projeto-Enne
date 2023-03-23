@@ -9,9 +9,9 @@ import 'package:enne_barbearia/views/admin/schedule_all.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../content/cadastre_user.dart';
-import '../content/login_app.dart';
-import '../content/password_change.dart';
+import '../client/register_user.dart';
+import '../client/login_app.dart';
+import '../client/password_change.dart';
 
 class HomePageAdmin extends StatelessWidget {
   HomePageAdmin({Key? key}) : super(key: key);

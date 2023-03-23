@@ -1,58 +1,13 @@
 import 'package:enne_barbearia/models/service.dart';
-import 'package:enne_barbearia/views/content/home_page.dart';
+import 'package:enne_barbearia/views/client/home_page.dart';
+import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-import '../../api.dart';
+import '../../controllers/control_register_scheduling.dart';
 import '../../models/userActive.dart';
 import '../admin/home_page_admin.dart';
 
-bool _isLoading = true;
-
-void successAlertBox(BuildContext context, String title, String message) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-  Future<int> submitSchedulingAPI(var start, var end, var service, var client, var employee, var city) async {
-    String apiUrl = "${DataApi.urlBaseApi}scheduling";
-    String parametros = 'start=$start&end=$end&fk_service=$service&fk_client=$client&fk_employee=$employee&fk_city=$city';
-    int retorno = 0;
-    try {
-      http.Response response = await http.post(
-        Uri.parse(apiUrl),
-        headers: <String, String>{'Content-Type': 'application/x-www-form-urlencoded'},
-        body: parametros,
-      );
-      if (response.statusCode == 200) {
-        print("AGENDAMENTO bem sucedida: ${response.body}");
-        //_isLoading = false;
-        retorno = response.statusCode;
-      } else {
-        print("AGENDAMENTO não sucedida: ${response.statusCode}");
-        retorno = response.statusCode;
-      }
-    } catch (e) {
-      print("Erro na requisição: $e");
-    }
-    return retorno;
-  }
 
 class RegisterScheduling extends StatefulWidget {
   const RegisterScheduling({super.key});
@@ -63,6 +18,10 @@ class RegisterScheduling extends StatefulWidget {
 
 
 class _RegisterSchedulingState extends State<RegisterScheduling> {
+
+  RegisterScheduleController registerScheduleController = RegisterScheduleController();
+  bool _isLoading = true;
+
    @override
   void initState() {
     super.initState();
@@ -72,8 +31,7 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
     String endH = '${SchedulingApiAppRequest.dateStart} $hourEnd';
     SchedulingApiAppRequest.dateEnd = endH;
     SchedulingApiAppRequest.numeroDiaSemana = 0;
-    //print("Data final: $endH");
-    submitSchedulingAPI(SchedulingApiAppRequest.dateScheduling, SchedulingApiAppRequest.dateEnd, SchedulingApiAppRequest.idfkService, UserActiveApp.idUser, '2','1');  
+    registerScheduleController.submitSchedulingAPI(SchedulingApiAppRequest.dateScheduling, SchedulingApiAppRequest.dateEnd, SchedulingApiAppRequest.idfkService, UserActiveApp.idUser, '2','1');  
     setState(() {
       _isLoading = false;
     });
@@ -105,11 +63,7 @@ class _RegisterSchedulingState extends State<RegisterScheduling> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.secundaryColor,
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                
-              ),
+              style: ButtonApp.themeButtonSmall,
               onPressed: () {
                 // Ação que será executada ao pressionar o botão
                 if(UserActiveApp.idUser == '1'){
