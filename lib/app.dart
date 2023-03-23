@@ -1,8 +1,5 @@
-/*Importações do flutter*/
 import 'package:enne_barbearia/views/client/login_app.dart';
 import 'package:flutter/material.dart';
-
-/*Importações do app*/
 import 'views/theme/app_theme.dart';
 
 class App extends StatelessWidget {

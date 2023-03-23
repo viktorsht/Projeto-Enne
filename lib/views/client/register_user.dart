@@ -1,6 +1,6 @@
 import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
-import 'package:enne_barbearia/views/client/validations/register_user_completed.dart';
+import 'package:enne_barbearia/views/validations/register_user_completed.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/contral_register_user.dart';
 import '../../models/validaCPF.dart';

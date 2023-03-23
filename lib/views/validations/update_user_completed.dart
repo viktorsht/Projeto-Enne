@@ -2,8 +2,8 @@ import 'package:enne_barbearia/views/client/home_page.dart';
 import 'package:enne_barbearia/views/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/userActive.dart';
-import '../../admin/home_page_admin.dart';
+import '../../models/userActive.dart';
+import '../admin/home_page_admin.dart';
 
 class TelaConfirmacaoUpdate extends StatelessWidget {
   const TelaConfirmacaoUpdate({super.key});

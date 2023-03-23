@@ -1,6 +1,6 @@
 import 'package:enne_barbearia/models/schedule_client.dart';
 import 'package:enne_barbearia/models/userActive.dart';
-import 'package:enne_barbearia/views/client/validations/deleted_completed.dart';
+import 'package:enne_barbearia/views/validations/deleted_completed.dart';
 import 'package:enne_barbearia/views/client/navigation.dart';
 import 'package:enne_barbearia/views/client/register_services.dart';
 import 'package:enne_barbearia/views/client/profile_screen.dart';

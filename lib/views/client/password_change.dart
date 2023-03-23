@@ -1,5 +1,5 @@
 import 'package:enne_barbearia/controllers/control_password_change.dart';
-import 'package:enne_barbearia/views/client/validations/update_pass_complet.dart';
+import 'package:enne_barbearia/views/validations/update_pass_complet.dart';
 import 'package:enne_barbearia/views/theme/app_button.dart';
 import 'package:flutter/material.dart';
 import '../../models/userActive.dart';
